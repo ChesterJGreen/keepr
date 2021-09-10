@@ -15,4 +15,4 @@ class SocketService extends SocketHandler {
   }
 }
 
-export const socketService = new SocketService()
+// export const socketService = new SocketService()

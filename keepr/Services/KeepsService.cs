@@ -33,5 +33,30 @@ namespace keepr.Services
     {
       return _repo.Create(newKeep);
     }
+
+
+    internal Keep Edit(Keep editedKeep)
+    {
+        Keep original = GetById(editedKeep.Id);
+        if (original.CreatorId != editedKeep.CreatorId)
+        {
+            throw new Exception("You do not have access");
+        }
+        original.Name = editedKeep.Name ?? original.Name;  
+        original.Description = editedKeep.Description ?? original.Description;
+        original.Img = original.Img ?? original.Img;
+        _repo.Edit(original);
+        return original;
+    }
+    internal void Delete(int keepId, string userId)
+    {
+      Keep keepToDelete = GetById(keepId);
+      if(keepToDelete.CreatorId != userId)
+      {
+          throw new Exception("You do not have access");
+      }
+      _repo.Delete(keepId);
+      
+    }
   }
 }
