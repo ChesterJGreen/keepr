@@ -48,7 +48,7 @@ namespace keepr.Controllers
         }
     }
     [HttpPost]
-    // [Authorize]
+    [Authorize]
     public async Task<ActionResult<Keep>> Create([FromBody] Keep newKeep)
     {
         try
