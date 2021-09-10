@@ -35,6 +35,9 @@
     "eslint.codeActionsOnSave.mode": "all",
     "editor.codeActionsOnSave": {
       "source.fixAll": true
-    }
+    },
+    "cSpell.words": [
+      "keepr"
+    ]
   }
 }

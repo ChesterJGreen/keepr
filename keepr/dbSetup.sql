@@ -14,9 +14,9 @@ CREATE TABLE keeps (
     name varchar(255) comment 'name of keep',
     description varchar(1000) comment 'description of keep',
     img varchar(255) comment 'image for keep',
-    views int NOT NULL comment 'views of keep',
-    shares int NOT NULL comment 'shares of keep',
-    keeps int NOT NULL comment 'name of keep',
+    views int NOT NULL DEFAULT 0 comment 'views of keep',
+    shares int NOT NULL DEFAULT 0 comment 'shares of keep',
+    keeps int NOT NULL DEFAULT 0 comment 'number of times saved in a vault',
     creatorId VARCHAR(255) COMMENT 'creator of keep',
     FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 comment '';
@@ -41,3 +41,6 @@ CREATE TABLE vaultKeeps (
     FOREIGN KEY (vaultId) REFERENCES vaults(id) ON DELETE CASCADE,
     FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE
 ) default charset utf8 comment '';
+
+DROP TABLE vaultKeeps;
+DROP TABLE keeps
