@@ -18,14 +18,18 @@ namespace keepr.Services
     {
       return _repo.GetAll();
     }
-    internal VaultKeep GetById(int id)
+    internal List<VaultKeep> GetByKeepId(int id, string userId)
     {
-        VaultKeep found = _repo.GetById(id);
-        if (found == null)
-        {
-            throw new Exception("Invalid Id");
-        }
-        return found;
+        List<VaultKeep> foundVK = _repo.GetByKeepId(id);
+        // if (foundVK == null || foundVK != userId)
+        // {
+        //     throw new Exception("Invalid Id");
+        // }
+        return foundVK;
+    }
+      internal VaultKeep GetByVKId(int id)
+    {
+      return _repo.GetByVkId(id);
     }
 
     internal VaultKeep Create(VaultKeep newVK)
@@ -36,12 +40,14 @@ namespace keepr.Services
 
     internal void Delete(int id, string accountId)
     {
-      VaultKeep vKToDelete = GetById(id);
+      VaultKeep vKToDelete = GetByVKId(id);
       if (vKToDelete.CreatorId != accountId)
       {
           throw new Exception("Invalid Access");
       }
       _repo.Delete(id);
     }
+
+  
   }
 }
