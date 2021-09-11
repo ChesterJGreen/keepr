@@ -24,7 +24,8 @@ namespace keepr.Services
     internal Vault GetById(int id)
     {
         Vault vault = _repo.GetById(id);
-        if(vault == null || vault.IsPrivate == true)
+        if(vault == null)
+        // || vault.IsPrivate == true
         {
             throw new Exception("Invalid Id");
         }
