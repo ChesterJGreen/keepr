@@ -6,7 +6,7 @@ namespace keepr.Models
     {
         public int Id { get; set; }
         [Required]
-        [MaxLength(30)]
+        [MaxLength(50)]
         public string Name { get; set; }
         [Required]
         [MaxLength(250)]

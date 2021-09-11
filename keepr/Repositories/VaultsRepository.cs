@@ -31,6 +31,23 @@ namespace keepr.Repositories
       }, splitOn: "id").ToList<Vault>();
     }
 
+    internal List<Vault> GetAll(string creatorId)
+    {
+        string sql = @"
+        SELECT
+         a.*,
+         v.*
+         FROM vaults v
+         JOIN accounts a ON a.id = v.creatorId
+         WHERE v.creatorId = @creatorId;
+         ";
+         return _db.Query<Profile, Vault, Vault>(sql, (prof, vault) =>
+         {
+             vault.Creator = prof;
+             return vault;
+         }, new { creatorId }, splitOn: "id").ToList<Vault>();
+    }
+
     internal Vault GetById(int id)
     {
        string sql = @"
@@ -74,6 +91,12 @@ namespace keepr.Repositories
         _db.Execute(sql, editedVault);
         return GetById(editedVault.Id);
 
+    }
+
+    internal void Delete(int id)
+    {
+        string sql = "DELETE FROM vaults WHERE id = @id LIMIT 1;";
+        _db.ExecuteScalar(sql, new { id });
     }
   }
 }

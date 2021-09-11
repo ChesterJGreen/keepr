@@ -30,6 +30,15 @@ namespace keepr.Services
         }
       return vault;
     }
+     internal List<Vault> GetVaultsByCreator(string creatorId, bool isPrivate= false)
+    {
+      List<Vault> vaults = _repo.GetAll(creatorId);
+      if (isPrivate)
+      {
+        vaults = vaults.FindAll(b => b.IsPrivate == true);
+      }
+      return vaults;
+    }
 
     internal Vault Create(Vault newVault)
     {
@@ -47,6 +56,16 @@ namespace keepr.Services
       original.Description = editedVault.Description ?? original.Description;
       original.IsPrivate = editedVault.IsPrivate !=null ? editedVault.IsPrivate : original.IsPrivate;
       return _repo.Edit(editedVault);
+    }
+
+    internal void Delete(int vaultId, string userId)
+    {
+      Vault vaultToDelete = GetById(vaultId);
+      if(vaultToDelete.CreatorId != userId)
+      {
+        throw new Exception("You do not have access");
+      }
+      _repo.Delete(vaultId);
     }
   }
 }
