@@ -14,11 +14,14 @@ namespace keepr.Controllers
     public class KeepsController : ControllerBase
     {
     private readonly KeepsService _ks;
+    private readonly VaultKeepsService _vks;
 
-    public KeepsController(KeepsService ks)
+    public KeepsController(KeepsService ks, VaultKeepsService vks)
     {
       _ks = ks;
+      _vks = vks;
     }
+
     [HttpGet]
     public ActionResult<List<Keep>> Get()
     {
@@ -47,6 +50,7 @@ namespace keepr.Controllers
             return BadRequest(err.Message);
         }
     }
+    
     [HttpPost]
     [Authorize]
     public async Task<ActionResult<Keep>> Create([FromBody] Keep newKeep)

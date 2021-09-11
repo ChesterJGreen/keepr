@@ -28,16 +28,17 @@ namespace keepr.Repositories
         (keepId, VaultId, creatorId)
         VALUES
         (@KeepId, @VaultId, @CreatorId);
-        SELECT LAST_INSERT_INTO();
+        SELECT LAST_INSERT_ID();
         ";
         newVK.Id = _db.ExecuteScalar<int>(sql, newVK);
         return GetByVkId(newVK.Id);
     }
 
-    internal List<VaultKeep> GetByKeepId(int id)
+    internal List<VaultKeep> GetByVaultId(int id)
     {
-      string sql = "SELECT * FROM vaultKeeps WHERE keepId = @id;";
-      return _db.Query<VaultKeep>(sql, new { id }).ToList();
+      string sql = "SELECT * FROM vaultKeeps WHERE vaultId = @id;";
+      List<VaultKeep> vaultKeeps = _db.Query<VaultKeep>(sql, new { id }).ToList();
+      return vaultKeeps;
     }
 
     internal void Delete(int id)

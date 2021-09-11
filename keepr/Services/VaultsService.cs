@@ -31,6 +31,10 @@ namespace keepr.Services
         }
       return vault;
     }
+    internal List<Vault> GetVaultsByProfileId(String id)
+    {
+      return _repo.GetVaultsByProfileId(id);
+    }
      internal List<Vault> GetVaultsByCreator(string creatorId, bool isPrivate= false)
     {
       List<Vault> vaults = _repo.GetAll(creatorId);
@@ -68,5 +72,6 @@ namespace keepr.Services
       }
       _repo.Delete(vaultId);
     }
+
   }
 }

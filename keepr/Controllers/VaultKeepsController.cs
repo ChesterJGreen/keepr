@@ -4,13 +4,14 @@ using System.Threading.Tasks;
 using CodeWorks.Auth0Provider;
 using keepr.Models;
 using keepr.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
 {
   [ApiController]
     [Route("/api/[controller]")]
-    // [Authorize]
+    [Authorize]
     public class VaultKeepsController : ControllerBase
     {
     private readonly VaultKeepsService _vs;
@@ -40,8 +41,8 @@ namespace keepr.Controllers
         {
             Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
             newVK.CreatorId = userInfo.Id;
-            VaultKeep vaultKeep = _vs.Create(newVK);
-            return Ok(vaultKeep); 
+            VaultKeep created = _vs.Create(newVK);
+            return Ok(created); 
         }
          catch (Exception err)
         {

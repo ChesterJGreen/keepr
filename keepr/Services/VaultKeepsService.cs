@@ -18,13 +18,13 @@ namespace keepr.Services
     {
       return _repo.GetAll();
     }
-    internal List<VaultKeep> GetByKeepId(int id, string userId)
+    internal List<VaultKeep> GetByVaultId(int id, string userId)
     {
-        List<VaultKeep> foundVK = _repo.GetByKeepId(id);
-        // if (foundVK == null || foundVK != userId)
-        // {
-        //     throw new Exception("Invalid Id");
-        // }
+        List<VaultKeep> foundVK = _repo.GetByVaultId(id);
+        if (foundVK == null)
+        {
+            throw new Exception("Invalid Id");
+        }
         return foundVK;
     }
       internal VaultKeep GetByVKId(int id)

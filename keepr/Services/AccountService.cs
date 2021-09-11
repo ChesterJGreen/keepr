@@ -3,7 +3,7 @@ using keepr.Repositories;
 
 namespace keepr.Services
 {
-    public class AccountService
+  public class AccountService
     {
         private readonly AccountsRepository _repo;
         public AccountService(AccountsRepository repo)
@@ -19,7 +19,14 @@ namespace keepr.Services
         {
             return _repo.GetByEmail(email);
         }
-        internal Account GetOrCreateProfile(Account userInfo)
+
+    internal Profile GetProfileById(string id)
+    {
+      Profile profile = _repo.GetProfileById(id);
+      return profile;
+    }
+
+    internal Account GetOrCreateProfile(Account userInfo)
         {
             Account profile = _repo.GetById(userInfo.Id);
             if (profile == null)
@@ -29,7 +36,8 @@ namespace keepr.Services
             return profile;
         }
 
-        internal Account Edit(Account editData, string userEmail)
+
+    internal Account Edit(Account editData, string userEmail)
         {
             Account original = GetProfileByEmail(userEmail);
             original.Name = editData.Name.Length > 0 ? editData.Name : original.Name;

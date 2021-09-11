@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -30,6 +31,21 @@ namespace keepr.Repositories
       }, splitOn: "id").ToList<Keep>();      
     }
 
+    internal List<Keep> GetByProfileId(String id)
+    {
+      string sql = @"
+      SELECT
+       a.*,
+       k.*
+       FROM keeps k
+       JOIN accounts a ON a.id = k.creatorId
+       WHERE k.creatorId = @id;";
+       return _db.Query<Profile, Keep, Keep>(sql, (prof, keep) =>
+       {
+         keep.Creator = prof;
+         return keep;
+       }, new { id }, splitOn: "id").ToList();
+    }
 
     internal Keep GetById(int id)
     {

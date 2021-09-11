@@ -49,14 +49,14 @@ namespace keepr.Controllers
             return BadRequest(err.Message);
         }
     }
-    [HttpGet("{id}/vaults")]
+    [HttpGet("{id}/keeps")]
     [Authorize]
     public async Task<ActionResult<VaultKeep>> GetById(int id)
     {
         try
         {
              Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-             List<VaultKeep> vks = _vkService.GetByKeepId(id, userInfo.Id);
+             List<VaultKeep> vks = _vkService.GetByVaultId(id, userInfo.Id);
              return Ok(vks);
         }
         catch (System.Exception)
@@ -65,6 +65,7 @@ namespace keepr.Controllers
             throw;
         }
     }
+    
     [HttpPost]
     [Authorize]
     public async Task<ActionResult<Vault>> Create([FromBody] Vault newVault)

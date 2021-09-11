@@ -45,7 +45,25 @@ namespace keepr.Repositories
          {
              vault.Creator = prof;
              return vault;
-         }, new { creatorId }, splitOn: "id").ToList<Vault>();
+         }, new { creatorId }, splitOn: "id").ToList();
+    }
+
+    internal List<Vault> GetVaultsByProfileId(string id)
+    {
+        string sql = @"
+        SELECT
+         a.*,
+         v.*
+         FROM vaults v
+         JOIN accounts a ON a.id = v.creatorId
+         WHERE v.creatorId = @id;
+         ";
+         return _db.Query<Profile, Vault, Vault>(sql, (prof, vault) =>
+         {
+             vault.Creator = prof;
+             return vault;
+         }, new { id }, splitOn: "id").ToList();
+
     }
 
     internal Vault GetById(int id)
