@@ -2,10 +2,10 @@
   <div class="Container-fluid home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
     <div class="row">
       <div v-if="loading" class="col text-center">
-        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+        <i class="fa fa-spinner fa-spin fa-lg" aria-hidden="true"></i>
       </div>
       <div v-else class="col-md-12">
-        <KeepComponent />
+        <KeepComponent v-for="k in keeps" :key="k.id" :keep="k" />
       </div>
     </div>
   </div>
@@ -23,7 +23,10 @@ export default {
     const loading = ref(true)
     onMounted(async() => {
       try {
+        debugger
+        console.log('before sending to service in component')
         await keepsService.GetAll()
+        console.log('after sending to service')
         loading.value = false
       } catch (error) {
         Pop.toast(error, 'error')
