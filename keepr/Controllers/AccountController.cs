@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using keepr.Models;
 using keepr.Services;
 using CodeWorks.Auth0Provider;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace keepr.Controllers
 {
