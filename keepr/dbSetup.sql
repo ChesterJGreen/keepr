@@ -27,6 +27,7 @@ CREATE TABLE vaults (
     updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
     name varchar(255) comment 'name of vault',
     description varchar(1000) comment 'description of vault',
+    img VARCHAR(255) comment 'img of vault',
     isPrivate TINYINT comment 'is vault private?',
     creatorId VARCHAR(255) COMMENT 'creator of vault',
     FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
@@ -42,5 +43,7 @@ CREATE TABLE vaultKeeps (
     FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE
 ) default charset utf8 comment '';
 
-DROP TABLE vaultKeeps;
-DROP TABLE keeps
+
+ALTER TABLE vaults
+ADD img VARCHAR(255);
+

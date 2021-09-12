@@ -1,7 +1,10 @@
 <template>
   <div class="Container-fluid home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
     <div class="row">
-      <div class="col-md-12">
+      <div v-if="loading" class="col text-center">
+        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+      </div>
+      <div v-else class="col-md-12">
         <KeepComponent />
       </div>
     </div>
@@ -12,6 +15,7 @@
 import { computed, onMounted, ref } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import Pop from '../utils/Notifier'
+import { keepsService } from '../services/KeepsService'
 
 export default {
   name: 'Home',

@@ -1,6 +1,5 @@
 import { AppState } from '../AppState'
-
-const { api } = require('./AxiosService')
+import { api } from './AxiosService'
 
 class KeepsService {
   async getAll() {
