@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using keepr.Models;
 using keepr.Services;
@@ -31,7 +30,7 @@ namespace keepr.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+            return BadRequest(e.Message);
             }
         }
     }
