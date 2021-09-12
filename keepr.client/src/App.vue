@@ -6,8 +6,8 @@
     <router-view />
   </main>
   <footer>
-    <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
+    <div class="bg-dark lighten-40 text-light text-center p-2">
+      <span class="text-dark"> Have you tried saving it to your vault yet?</span>
     </div>
   </footer>
 </template>
@@ -26,5 +26,13 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
+.action {
+  :hover{
+    cursor: pointer;
+  }
+}
+a {
+  text-decoration: none;
+}
 
 </style>

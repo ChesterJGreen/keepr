@@ -1,10 +1,12 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark lighten-40">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <img
+          class="border"
           alt="logo"
-          src="../assets/img/cw-logo.png"
+          src="../assets/img/K.png"
+          title="Home Page"
           height="45"
         />
       </div>
@@ -21,13 +23,13 @@
       <span class="navbar-toggler-icon" />
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+      <ul class="navbar-nav mr-auto bg-light">
+        <li class="nav-item text-dark">
           <router-link :to="{ name: 'Home' }" class="nav-link">
             Home
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item text-dark">
           <router-link :to="{ name: 'About' }" class="nav-link">
             About
           </router-link>
@@ -44,16 +46,16 @@
 
         <div class="dropdown" v-else>
           <div
-            class="dropdown-toggle"
+            class="dropdown-toggle border"
             @click="state.dropOpen = !state.dropOpen"
           >
             <img
               :src="user.picture"
               alt="user photo"
               height="40"
-              class="rounded"
+              class=""
             />
-            <span class="mx-3">{{ user.name }}</span>
+            <span class="mx-3">{{ user.nickname }}</span>
           </div>
           <div
             class="dropdown-menu p-0 list-group w-100"
