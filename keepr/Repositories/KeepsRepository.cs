@@ -31,20 +31,17 @@ namespace keepr.Repositories
       }, splitOn: "id").ToList<Keep>();      
     }
 
-    internal List<Keep> GetByProfileId(String id)
+    internal List<VaultKeepViewModel> GetKeepsByVaultId(int id)
     {
       string sql = @"
       SELECT
-       a.*,
-       k.*
-       FROM keeps k
-       JOIN accounts a ON a.id = k.creatorId
-       WHERE k.creatorId = @id;";
-       return _db.Query<Profile, Keep, Keep>(sql, (prof, keep) =>
-       {
-         keep.Creator = prof;
-         return keep;
-       }, new { id }, splitOn: "id").ToList();
+      k.*,
+      vk.id AS vaultKeepId
+      FROM vaultKeeps vk
+      JOIN keeps k on vk.keepId = k.Id
+      WHERE vk.vaultId = @id;
+      ";
+      return _db.Query<VaultKeepViewModel>(sql, new {id}).ToList();
     }
 
     internal Keep GetById(int id)
@@ -62,6 +59,45 @@ namespace keepr.Repositories
               return keep;
           }, new {id}, splitOn: "id").FirstOrDefault();
     }
+    internal List<Keep> GetByProfileId(String id)
+    {
+      string sql = @"
+      SELECT
+       a.*,
+       k.*
+       FROM keeps k
+       JOIN accounts a ON a.id = k.creatorId
+       WHERE k.creatorId = @id;";
+       return _db.Query<Profile, Keep, Keep>(sql, (prof, keep) =>
+       {
+         keep.Creator = prof;
+         return keep;
+       }, new { id }, splitOn: "id").ToList();
+    }
+
+    
+    internal List<Keep> GetAll(int vaultId)
+    {
+      string sql = @"
+      SELECT
+      a.*,
+      k.*,
+      vk.*
+      FROM keeps k
+      JOIN accounts a ON vk.creatorId = a.id,
+      JOIN vaultKeeps vk ON vk.keepId = k.id
+      WHERE vk.vaultId = @vaultId;";
+      return _db.Query<Profile, Keep, VaultKeep, Keep>(sql, (prof, keep, vaultKeep) =>
+      {
+        keep.Creator = prof;
+        vaultKeep.Id = vaultId;
+        return keep;
+      }, new { vaultId }, splitOn: "id").ToList();
+
+    }
+
+    
+    
     internal Keep Create(Keep newKeep)
     {
       string sql = @"
@@ -69,11 +105,11 @@ namespace keepr.Repositories
       (name, description, img, creatorId)
       VALUES
       (@Name, @Description, @Img, @CreatorId);
-      SELECT LAST_INSERT_ID();";
+      SELECT LAST_INSERT_ID();
+      ";
       int id = _db.ExecuteScalar<int>(sql, newKeep);
       return GetById(id);
     }
-
 
     internal Keep Edit(Keep original)
     {

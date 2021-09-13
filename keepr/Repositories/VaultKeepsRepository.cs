@@ -20,32 +20,6 @@ namespace keepr.Repositories
     {
       throw new NotImplementedException();
     }
-
-    internal VaultKeep Create(VaultKeep newVK)
-    {
-        string sql = @"
-        INSERT INTO vaultKeeps
-        (keepId, VaultId, creatorId)
-        VALUES
-        (@KeepId, @VaultId, @CreatorId);
-        SELECT LAST_INSERT_ID();
-        ";
-        newVK.Id = _db.ExecuteScalar<int>(sql, newVK);
-        return GetByVkId(newVK.Id);
-    }
-
-    internal List<VaultKeep> GetByVaultId(int id)
-    {
-      string sql = "SELECT * FROM vaultKeeps WHERE vaultId = @id;";
-      List<VaultKeep> vaultKeeps = _db.Query<VaultKeep>(sql, new { id }).ToList();
-      return vaultKeeps;
-    }
-
-    internal void Delete(int id)
-    {
-      throw new NotImplementedException();
-    }
-
     internal VaultKeep GetByVkId(int id)
     {
       string sql = @"
@@ -62,5 +36,24 @@ namespace keepr.Repositories
           return vk;
       }, new { id }, splitOn: "id").FirstOrDefault();
     }
+
+    internal VaultKeep Create(VaultKeep newVK)
+    {
+        string sql = @"
+        INSERT INTO vaultKeeps
+        (keepId, VaultId, creatorId)
+        VALUES
+        (@KeepId, @VaultId, @CreatorId);
+        SELECT LAST_INSERT_ID();
+        ";
+        newVK.Id = _db.ExecuteScalar<int>(sql, newVK);
+        return GetByVkId(newVK.Id);
+    }  
+      internal void Delete(int id)
+    {
+       string sql = "DELETE FROM vaultKeeps WHERE id = @id LIMIT 1;";
+            _db.Execute(sql, new { id });
+    }
+
   }
 }
