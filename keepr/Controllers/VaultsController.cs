@@ -38,11 +38,13 @@ namespace keepr.Controllers
         }
     }
     [HttpGet("{id}")]
-    public ActionResult<Vault> Get(int id)
+    public async Task<ActionResult<Vault>> Get(int id)
     {
            try
         {
-            Vault vault = _vs.GetById(id);
+            Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+            String userId = userInfo?.Id;
+            Vault vault = _vs.GetById(id, userId);
             return Ok(vault);
         }
         catch (Exception err)
@@ -52,13 +54,14 @@ namespace keepr.Controllers
         }
     }
     [HttpGet("{id}/keeps")]
-    [Authorize]
-    public ActionResult<List<VaultKeepViewModel>> GetKeepsByVaultId(int id)
+    
+    public async Task<ActionResult<List<VaultKeepViewModel>>> GetKeepsByVaultId(int id)
     {
         try
         {
-             
-             List<VaultKeepViewModel> keeps = _ks.GetKeepsByVaultId(id);
+             Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+             String userId = userInfo?.Id;
+             List<VaultKeepViewModel> keeps = _ks.GetKeepsByVaultId(id, userId);
              return Ok(keeps);
         }
         catch (Exception err)
@@ -92,9 +95,8 @@ namespace keepr.Controllers
         try
         {
             Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-            editedVault.CreatorId = userInfo.Id;
             editedVault.Id = id;
-            Vault edited = _vs.Edit(editedVault);
+            Vault edited = _vs.Edit(editedVault, userInfo.Id);
             return Ok(edited);
         }
         catch (Exception err)

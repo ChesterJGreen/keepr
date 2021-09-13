@@ -21,7 +21,7 @@ namespace keepr.Controllers
     }
     
     [HttpPost]
-    [Authorize]
+    
         public async Task<ActionResult<VaultKeep>> Create([FromBody] VaultKeep newVK)
     {
         try

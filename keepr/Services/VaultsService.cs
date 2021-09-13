@@ -21,16 +21,24 @@ namespace keepr.Services
 
     }
 
-    internal Vault GetById(int id)
+    internal Vault GetById(int id, String userId)
     {
-        Vault vault = _repo.GetById(id);
-        if(vault == null)
-        // || vault.IsPrivate == true
+
+        Vault found = _repo.GetById(id);
+        if(found == null)
         {
-            throw new Exception("Invalid Id");
+          throw new Exception("Invalid Id");
         }
-      return vault;
-    }
+        if(found.CreatorId != userId && found.IsPrivate == true)
+          {
+            throw new Exception("No access");
+          }
+          
+          return found;
+        }
+        
+      
+    
     internal List<Vault> GetVaultsByProfileId(String id)
     {
       return _repo.GetVaultsByProfileId(id);
@@ -50,13 +58,9 @@ namespace keepr.Services
        return _repo.Create(newVault);
     }
 
-    internal Vault Edit(Vault editedVault)
+    internal Vault Edit(Vault editedVault, String userId)
     {
-      Vault original = GetById(editedVault.Id);
-      if (original.CreatorId != editedVault.CreatorId)
-      {
-          throw new Exception("Invalid Access");
-      }
+      Vault original = GetById(editedVault.Id, userId);
       original.Name = editedVault.Name ?? original.Name;
       original.Description = editedVault.Description ?? original.Description;
       original.IsPrivate = editedVault.IsPrivate !=null ? editedVault.IsPrivate : original.IsPrivate;
@@ -65,7 +69,7 @@ namespace keepr.Services
 
     internal void Delete(int vaultId, string userId)
     {
-      Vault vaultToDelete = GetById(vaultId);
+      Vault vaultToDelete = GetById(vaultId, userId);
       if(vaultToDelete.CreatorId != userId)
       {
         throw new Exception("You do not have access");

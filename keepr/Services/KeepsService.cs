@@ -8,10 +8,12 @@ namespace keepr.Services
   public class KeepsService 
   {
       private readonly KeepsRepository _repo;
+      private readonly VaultsRepository _vaultRepo;
 
-    public KeepsService(KeepsRepository repo)
+    public KeepsService(KeepsRepository repo, VaultsRepository vaultRepo)
     {
       _repo = repo;
+      _vaultRepo = vaultRepo;
     }
 
     internal List<Keep> Get()
@@ -26,11 +28,21 @@ namespace keepr.Services
         {
             throw new Exception("Invalid Id");
         }
+        keep.Keeps++;
+        _repo.Edit(keep);
       return keep;
     }
-    internal List<VaultKeepViewModel> GetKeepsByVaultId(int id)
+    internal List<VaultKeepViewModel> GetKeepsByVaultId(int id, string userId)
     {
+      Vault vaultCheck = _vaultRepo.GetById(id);
+      if (vaultCheck.IsPrivate != false)
+      {
+        if(vaultCheck.CreatorId != userId){
+          throw new Exception("You do not have access");
+        }
+      } 
       return _repo.GetKeepsByVaultId(id);
+
     }
     internal List<Keep> GetKeepsByProfileId(string id)
     {
