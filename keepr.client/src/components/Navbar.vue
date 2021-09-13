@@ -5,7 +5,7 @@
         <img
           class="border"
           alt="logo"
-          src="../assets/img/K.png"
+          src="../assets/img/k-cursive.png"
           title="Home Page"
           height="45"
         />
@@ -30,8 +30,8 @@
           </router-link>
         </li>
         <li class="nav-item text-dark">
-          <router-link :to="{ name: 'About' }" class="nav-link">
-            About
+          <router-link :to="{ name: 'Profile' }" class="nav-link">
+            Profile
           </router-link>
         </li>
       </ul>

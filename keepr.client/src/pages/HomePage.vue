@@ -1,12 +1,10 @@
 <template>
   <div class="Container-fluid home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="row">
+    <div class="row m-0 mt-5">
       <div v-if="loading" class="col text-center">
         <i class="fa fa-spinner fa-spin fa-lg" aria-hidden="true"></i>
       </div>
-      <div v-else class="col-md-12">
-        <KeepComponent v-for="k in keeps" :key="k.id" :keep="k" />
-      </div>
+      <KeepComponent v-for="k in keeps" :key="k.id" :keep="k" />
     </div>
   </div>
 </template>
@@ -23,10 +21,7 @@ export default {
     const loading = ref(true)
     onMounted(async() => {
       try {
-        debugger
-        console.log('before sending to service in component')
-        await keepsService.GetAll()
-        console.log('after sending to service')
+        await keepsService.getAll()
         loading.value = false
       } catch (error) {
         Pop.toast(error, 'error')
@@ -34,7 +29,7 @@ export default {
     })
     return {
       loading,
-      keeps: computed(() => AppState.account)
+      keeps: computed(() => AppState.keeps)
     }
   }
 }
