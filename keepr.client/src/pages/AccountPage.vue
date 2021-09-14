@@ -13,7 +13,7 @@
                 Vaults: {{ myVaults.length }}
               </p>
               <p>
-                Keeps: {{ keeps.length }}
+                Keeps: {{ myKeeps?.length }}
               </p>
             </div>
           </div>
@@ -25,9 +25,9 @@
         <div class="row">
           <div class="col-md-4 offset-1 pl-5 my-3 mt-5">
             <h3>
-              Vaults <button class="action" title="Add a Vault" data-target="#create-vault-modal" data-toggle="modal">
+              Vaults <span class="action" title="Add a Vault" data-target="#create-vault-modal" data-toggle="modal">
                 +
-              </button>
+              </span>
             </h3>
           </div>
         </div>
@@ -45,16 +45,16 @@
         <div class="row">
           <div class="col-md-4 offset-1 pl-5 my-3">
             <h3>
-              Keeps <button class="action" title="Add a Keep" data-target="#create-keep-modal" data-toggle="modal">
+              Keeps <span class="action" title="Add a Keep" data-target="#create-keep-modal" data-toggle="modal">
                 +
-              </button>
+              </span>
             </h3>
           </div>
         </div>
         <div class="row">
           <div class="col-md-10 offset-1 my-2">
             <div class="card-columns">
-              <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
+              <KeepCard v-for="k in myKeeps" :key="k.id" :keep="k" />
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@ export default {
     onMounted(async() => {
       try {
         await vaultsService.getAllByCreator()
-        await keepsService.getAll()
+        await keepsService.getAllByCreator(AppState.account.id)
         loading.value = false
       } catch (error) {
         Pop.toast(error, 'error')
