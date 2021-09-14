@@ -8,11 +8,13 @@ namespace keepr.Services
   {
       private readonly VaultKeepsRepository _repo;
       private readonly VaultsRepository _vaultRepo;
+      private readonly KeepsRepository _keepRepo;
 
-    public VaultKeepsService(VaultKeepsRepository repo, VaultsRepository vaultRepo)
+    public VaultKeepsService(VaultKeepsRepository repo, VaultsRepository vaultRepo, KeepsRepository keepRepo)
     {
       _repo = repo;
       _vaultRepo = vaultRepo;
+      _keepRepo = keepRepo;
     }
 
     internal VaultKeep GetById(int id)
@@ -38,6 +40,10 @@ namespace keepr.Services
       {
           throw new Exception("Invalid Access");
       }
+      Keep toEdit = _keepRepo.GetById(vKToDelete.KeepId);
+      toEdit.Keeps--;
+      _keepRepo.KeepsChange(toEdit);
+      
       _repo.Delete(id);
     }
 

@@ -39,17 +39,22 @@ namespace keepr.Services
         
       
     
-    internal List<Vault> GetVaultsByProfileId(String id)
+    internal List<Vault> GetVaultsByProfileId(string profileId)
     {
-      return _repo.GetVaultsByProfileId(id);
+
+    List<Vault> vaults =  _repo.GetVaultsByProfileId(profileId);
+     
+    
+    return vaults.FindAll(v => v.IsPrivate == false);
+     
+
+     
+
+      
     }
-     internal List<Vault> GetVaultsByCreator(string creatorId, bool isPrivate= false)
+     internal List<Vault> GetVaultsByCreator(string creatorId)
     {
       List<Vault> vaults = _repo.GetAll(creatorId);
-      if (isPrivate)
-      {
-        vaults = vaults.FindAll(b => b.IsPrivate == true);
-      }
       return vaults;
     }
 

@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using CodeWorks.Auth0Provider;
 using keepr.Models;
 using keepr.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
 {
-    [ApiController]
+  [ApiController]
     [Route("/api/[controller]")]
     public class ProfilesController : ControllerBase
     {
@@ -51,12 +53,23 @@ try
         }
 
         [HttpGet("{id}/vaults")]
-        public ActionResult<List<Vault>> GetVaultsByProfileId(String id)
+        public async Task<ActionResult<List<Vault>>> GetVaultsByProfileId(string id)
         {
 try
             {
-                List<Vault> vaults = _vaultsService.GetVaultsByProfileId(id);
-                return Ok(vaults);
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                String userId = userInfo?.Id;
+                if(userId != id)
+                {
+                    List<Vault> vaults = _vaultsService.GetVaultsByProfileId(id);
+                    return Ok(vaults);
+                }
+                else
+                {
+                    List<Vault> vaults = _vaultsService.GetVaultsByCreator(id);
+                    return Ok(vaults);
+                }
+                
             }
             catch (Exception err)
             {

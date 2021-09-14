@@ -118,11 +118,23 @@ namespace keepr.Repositories
         SET
             name = @Name,
             description = @Description,
-            img = @Img
+            img = @Img,
+            keeps = @Keeps
         WHERE id = @Id;";
         _db.Execute(sql, original);
         return GetById(original.Id); 
     }
+    internal Keep KeepsChange(Keep edit)
+    {
+      string sql = @"
+      UPDATE keeps
+      SET 
+        keeps = @Keeps
+      WHERE id = @Id;";
+      _db.ExecuteScalar(sql, edit);
+      return GetById(edit.Id);   
+    }
+
     internal void Delete(int id)
     {
         string sql = "DELETE FROM keeps WHERE id = @id LIMIT 1;";
