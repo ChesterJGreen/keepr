@@ -50,9 +50,9 @@ export default {
     width: 200px;
   }
 }
-.card-columns {
-column-count: 6;
-}
+// .card-columns {
+// column-count: 6;
+// }
 .card:hover {
   transform: scale(1.04);
 }

@@ -60,7 +60,7 @@
         </div>
       </div>
     </div>
-    <CreateVault />
+    <CreateVaultModal />
     <CreateKeep />
   </div>
 </template>
@@ -91,8 +91,8 @@ export default {
     return {
       account: computed(() => AppState.account),
       myVaults: computed(() => AppState.myVaults),
-      myKeeps: computed(() => AppState.myKeeps),
-      keeps: computed(() => AppState.keeps)
+      myKeeps: computed(() => AppState.myKeeps)
+
     }
   },
   components: { VaultCard, KeepCard }
