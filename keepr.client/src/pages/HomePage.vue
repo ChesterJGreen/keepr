@@ -1,10 +1,11 @@
 <template>
-  <div class="Container-fluid home flex-grow-1  align-items-center justify-content-center">
-    <div class="row m-0 mt-5 card-columns">
-      <div v-if="loading" class="col text-center">
+  <div class="container-fluid home flex-grow-1  align-items-center justify-content-center px-5">
+    <div class="row m-0 mt-5 justify-content-between px-5">
+    </div>
+    <div class="card-columns">
+      <div v-if="loading" class="col-md-12 text-center">
         <i class="fa fa-spinner fa-spin fa-lg" aria-hidden="true"></i>
       </div>
-
       <KeepComponent v-for="k in keeps" :key="k.id" :keep="k" />
     </div>
   </div>
@@ -48,6 +49,9 @@ export default {
     height: 200px;
     width: 200px;
   }
+}
+.card-columns {
+column-count: 5;
 }
 
 </style>
