@@ -37,11 +37,12 @@ namespace keepr.Controllers
     }
     }
     [HttpGet("{id}")]
-    public ActionResult<Keep> Get(int id)
+    public async Task<ActionResult<Keep>> GetAsync(int id)
     {
         try
         {
-            Keep keep = _ks.GetById(id);
+             Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+             Keep keep = _ks.GetById(id, userInfo?.Id);
             return Ok(keep);
         }
         catch (Exception err)

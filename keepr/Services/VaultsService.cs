@@ -66,6 +66,10 @@ namespace keepr.Services
     internal Vault Edit(Vault editedVault, String userId)
     {
       Vault original = GetById(editedVault.Id, userId);
+      if (original.CreatorId != userId) 
+      {
+        throw new UnauthorizedAccessException();
+      }
       original.Name = editedVault.Name ?? original.Name;
       original.Description = editedVault.Description ?? original.Description;
       original.IsPrivate = editedVault.IsPrivate !=null ? editedVault.IsPrivate : original.IsPrivate;

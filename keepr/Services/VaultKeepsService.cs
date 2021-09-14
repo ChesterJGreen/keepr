@@ -29,6 +29,9 @@ namespace keepr.Services
         if (check.CreatorId != newVK.CreatorId){
           throw new Exception("You do not have access");
         }
+        Keep keep = _keepRepo.GetById(newVK.KeepId);
+        keep.Keeps++;
+        _keepRepo.KeepsChange(keep);
 
         return _repo.Create(newVK);
     }

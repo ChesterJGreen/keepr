@@ -21,15 +21,19 @@ namespace keepr.Services
       return _repo.GetAll();
     }
 
-    internal Keep GetById(int id)
+    internal Keep GetById(int id, string userId)
     {
-        Keep keep = _repo.GetById(id);
-        if (keep == null)
-        {
-            throw new Exception("Invalid Id");
-        }
-        keep.Keeps++;
+      Keep keep = _repo.GetById(id);
+      if (keep == null)
+      {
+          throw new Exception("Invalid Id");
+      }
+      if (keep.CreatorId != userId)
+      {
+        keep.Views++;
         _repo.Edit(keep);
+      }
+
       return keep;
     }
     internal List<VaultKeepViewModel> GetKeepsByVaultId(int id, string userId)
@@ -61,7 +65,7 @@ namespace keepr.Services
 
     internal Keep Edit(Keep editedKeep)
     {
-        Keep original = GetById(editedKeep.Id);
+        Keep original = GetById(editedKeep.Id, editedKeep.CreatorId);
         if (original.CreatorId != editedKeep.CreatorId)
         {
             throw new Exception("You do not have access");
@@ -76,7 +80,7 @@ namespace keepr.Services
 
     internal void Delete(int keepId, string userId)
     {
-      Keep keepToDelete = GetById(keepId);
+      Keep keepToDelete = GetById(keepId, userId);
       if(keepToDelete.CreatorId != userId)
       {
           throw new Exception("You do not have access");

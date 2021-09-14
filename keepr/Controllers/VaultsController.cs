@@ -99,9 +99,12 @@ namespace keepr.Controllers
             Vault edited = _vs.Edit(editedVault, userInfo.Id);
             return Ok(edited);
         }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
+        }
         catch (Exception err)
         {
-            
             return BadRequest(err.Message);
         }
     }
