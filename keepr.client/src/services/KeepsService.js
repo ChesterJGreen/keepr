@@ -8,5 +8,11 @@ class KeepsService {
     logger.log(res.data)
     AppState.keeps = res.data
   }
+
+  async getAllByProfile() {
+    const res = await api.get()
+    logger.log(res.data)
+    AppState.myKeeps = res.data
+  }
 }
 export const keepsService = new KeepsService()
