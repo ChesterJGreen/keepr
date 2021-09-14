@@ -1,6 +1,6 @@
 <template>
-  <div class="col-md-2 card shadow m-3 p-0">
-    <img class="w-100" :src="keep.img">
+  <div class="card shadow">
+    <img class="w-100 card-top" :src="keep.img">
     <h5 class="text-center">
       {{ keep.name }}
     </h5>
@@ -24,5 +24,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.card {
+  border-radius: 15px;
+  }
+.card-top {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
 </style>

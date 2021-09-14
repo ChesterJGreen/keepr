@@ -1,5 +1,5 @@
 <template>
-  <div class="card card-bottom card-top">
+  <div class="card card-bottom card-top action" @click="KeepModal-`{keep.id}`" data-toggel="modal" data-target="'#keep-modal-'{keep.id}">
     <img :src="keep.img" class="card-img card-bottom card-top">
     <h4 class="card-text py-2 card-img-overlay text-light">
       {{ keep.name }}-- {{ keep.description }}

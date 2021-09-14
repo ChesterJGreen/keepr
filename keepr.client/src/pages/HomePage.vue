@@ -51,7 +51,10 @@ export default {
   }
 }
 .card-columns {
-column-count: 5;
+column-count: 6;
+}
+.card:hover {
+  transform: scale(1.04);
 }
 
 </style>

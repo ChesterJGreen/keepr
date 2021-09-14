@@ -24,16 +24,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto bg-light">
-        <li class="nav-item text-dark">
-          <router-link :to="{ name: 'Home' }" class="nav-link">
-            Home
-          </router-link>
-        </li>
-        <li class="nav-item text-dark">
-          <router-link :to="{ name: 'Profile' }" class="nav-link">
-            Profile
-          </router-link>
-        </li>
       </ul>
       <span class="navbar-text">
         <button

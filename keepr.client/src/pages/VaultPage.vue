@@ -5,36 +5,10 @@
         <div class="col-md-6 offset-1">
           <div class="row">
             <div class="col-md-3">
-              <img class="w-100 border border-dark" :src="account.picture" alt="" />
+              <img class="w-100" :src="activeVault.img" alt="" />
             </div>
             <div class="col-md-5">
-              <h2> {{ account.name }}</h2>
-              <p>
-                Vaults: {{ myVaults.length }}
-              </p>
-              <p>
-                Keeps: {{ keeps.length }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-4 offset-1 pl-5 my-3 mt-5">
-            <h3>
-              Vaults <button class="action" title="Add a Vault" data-target="#create-vault-modal" data-toggle="modal">
-                +
-              </button>
-            </h3>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-10 offset-1 my-2">
-            <div class="row">
-              <VaultCard v-for="v in myVaults" :key="v.id" :vault="v" />
+              <h2> {{ activeVault.name }}</h2>
             </div>
           </div>
         </div>
@@ -60,8 +34,6 @@
         </div>
       </div>
     </div>
-    <CreateVault />
-    <CreateKeep />
   </div>
 </template>
 
@@ -75,13 +47,13 @@ import VaultCard from '../components/VaultCard.vue'
 import KeepCard from '../components/KeepCard.vue'
 
 export default {
-  name: 'Account',
+  name: 'VaultPage',
 
   setup() {
     const loading = ref(true)
     onMounted(async() => {
       try {
-        await vaultsService.getAllByCreator()
+        await vaultsService.getById()
         await keepsService.getAll()
         loading.value = false
       } catch (error) {
@@ -90,9 +62,8 @@ export default {
     })
     return {
       account: computed(() => AppState.account),
-      myVaults: computed(() => AppState.myVaults),
-      myKeeps: computed(() => AppState.myKeeps),
-      keeps: computed(() => AppState.keeps)
+      activeVault: computed(() => AppState.activeVault),
+      activeKeeps: computed(() => AppState.activeKeeps)
     }
   },
   components: { VaultCard, KeepCard }
