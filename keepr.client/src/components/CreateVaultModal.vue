@@ -83,7 +83,6 @@ export default {
       async createVault() {
         try {
           await vaultsService.createVault(state.rawVault)
-          console.log('after the function')
           state.rawVault = {}
           Pop.toast('Vault Created', 'success')
           $('#create-vault-modal').modal('toggle')
