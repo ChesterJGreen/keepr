@@ -1,6 +1,6 @@
 <template>
-  <div :data-target="'#keep-modal-'+keep.id" data-toggle="modal">
-    <div class="card card-bottom card-top action" @click="KeepModal-`${keep.id}`" data-toggel="modal" data-target="'#keep-modal-'{keep.id}">
+  <div :data-target="'#keep-modal-'+keep.id" data-toggle="modal" @click="getById">
+    <div class="card card-bottom card-top action">
       <img :src="keep.img" class="card-img card-bottom card-top">
       <h4 class="card-text py-2 card-img-overlay text-light text-left">
         {{ keep.name }}-- {{ keep.description }}
@@ -16,6 +16,9 @@
 </template>
 
 <script>
+import { keepsService } from '../services/KeepsService'
+import { logger } from '../utils/Logger'
+import Pop from '../utils/Notifier'
 
 export default {
   name: 'KeepComponent',
@@ -26,8 +29,23 @@ export default {
       required: true
     }
   },
-  setup() {
+  setup(props) {
     return {
+      async getById() {
+        try {
+          logger.log('in component -1')
+          console.log('in component - 1')
+          console.log(props.keep.id)
+          console.log(props.keep)
+          const done = await keepsService.getById(props.keep.id)
+          console.log('in component - end')
+          console.log(done)
+          console.log(props.keep)
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      }
+
     }
   },
   components: { }
@@ -38,6 +56,9 @@ export default {
 .card {
   border-radius: 15px;
   }
+.card:hover {
+  transform: scale(1.01);
+}
 .card-top {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;

@@ -36,6 +36,7 @@ namespace keepr.Services
 
       return keep;
     }
+    
     internal List<VaultKeepViewModel> GetKeepsByVaultId(int id, string userId)
     {
       Vault vaultCheck = _vaultRepo.GetById(id);
@@ -72,7 +73,7 @@ namespace keepr.Services
         }
         original.Name = editedKeep.Name ?? original.Name;  
         original.Description = editedKeep.Description ?? original.Description;
-        original.Img = original.Img ?? original.Img;
+        original.Img = editedKeep.Img ?? original.Img;
         _repo.Edit(original);
         return original;
     }

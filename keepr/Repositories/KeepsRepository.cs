@@ -119,7 +119,9 @@ namespace keepr.Repositories
             name = @Name,
             description = @Description,
             img = @Img,
-            keeps = @Keeps
+            keeps = @Keeps,
+            views = @Views,
+            shares = @Shares
         WHERE id = @Id;";
         _db.Execute(sql, original);
         return GetById(original.Id); 

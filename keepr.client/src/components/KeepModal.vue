@@ -63,6 +63,8 @@
 </template>
 
 <script>
+import { computed } from '@vue/runtime-core'
+import { AppState } from '../AppState'
 export default {
   name: 'KeepModal',
   props: {
@@ -73,7 +75,9 @@ export default {
     }
   },
   setup() {
-    return {}
+    return {
+      activeKeep: computed(() => AppState.activeKeep)
+    }
   },
   components: {}
 }

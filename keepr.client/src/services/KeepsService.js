@@ -21,6 +21,16 @@ class KeepsService {
     AppState.myKeeps = res.data
   }
 
+  async getById(id) {
+    console.log('in service - 2')
+    console.log(id)
+    console.log(id)
+    const res = await api.get(`api/keeps/${id}`)
+    logger.log(res.data)
+
+    AppState.keeps.activeKeep = res.data
+  }
+
   async createKeep(rawKeep) {
     const res = await api.post('api/keeps', rawKeep)
     logger.log(res.data)
