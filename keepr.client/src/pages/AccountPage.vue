@@ -60,7 +60,7 @@
       </div>
     </div>
     <CreateVaultModal />
-    <CreateKeep />
+    <CreateKeepModal />
   </div>
 </template>
 
