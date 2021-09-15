@@ -15,7 +15,7 @@ namespace keepr.Models
         public bool? IsPrivate { get; set; }
         public string CreatorId { get; set; }        
         public Profile Creator { get; set; }
-        public string Img { get; set; }
+        public string Img { get; set; } = "https://thiscatdoesnotexist.com/";
 
         public virtual ICollection<VaultKeep> VaultKeeps { get; set; }
 

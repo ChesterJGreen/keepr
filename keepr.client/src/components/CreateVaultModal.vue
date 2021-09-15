@@ -5,14 +5,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">
-              Create a Keep
+              Create a Vault
             </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" title="Cancel" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <form>
+          <form @submit="createVault">
+            <div class="modal-body">
               <div class="form-group">
                 <label for="inputName">Name:</label>
                 <input type="text"
@@ -23,6 +23,18 @@
                        required
                        minlength="4"
                 >
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">Description:</label>
+                <textarea type="textarea"
+                          rows="3"
+                          class="form-control"
+                          v-model="state.rawVault.description"
+                          min-length="10"
+                          id="inputDescription"
+                          required
+                          placeholder="Enter Description..."
+                ></textarea>
               </div>
               <div class="form-group">
                 <label for="inputImg">Image:</label>
@@ -42,16 +54,13 @@
                 </span>
                 <br>
               </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">
-              Save changes
-            </button>
-          </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#createVault">
+                Create Vault
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -62,7 +71,7 @@
 import { reactive } from '@vue/reactivity'
 import Pop from '../utils/Notifier'
 import { vaultsService } from '../services/VaultsService'
-// import $ from 'jquery'
+import $ from 'jquery'
 export default {
   name: 'CreateVaultModal',
   setup() {
@@ -74,9 +83,10 @@ export default {
       async createVault() {
         try {
           await vaultsService.createVault(state.rawVault)
+          console.log('after the function')
           state.rawVault = {}
           Pop.toast('Vault Created', 'success')
-          // $('#create-vault-modal').modal('toggle')
+          $('#create-vault-modal').modal('toggle')
         } catch (error) {
           Pop.toast(error, 'error')
         }

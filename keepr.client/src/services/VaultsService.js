@@ -1,3 +1,4 @@
+import { data } from 'jquery'
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
@@ -16,9 +17,9 @@ class VaultsService {
   }
 
   async createVault(rawVault) {
-    const res = await api.post('api/vaults')
+    const res = await api.post('api/vaults', rawVault)
+    AppState.myVaults.push(res.data)
     logger.log(res.data)
-    AppState.myVaults(...AppState.myVaults)
   }
 }
 export const vaultsService = new VaultsService()
