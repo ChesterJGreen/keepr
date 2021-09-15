@@ -10,11 +10,10 @@
             <div class="col-md-5">
               <h2> {{ account.name }}</h2>
               <p>
-                Vaults: {{ myVaults.length }}
-              </p>
+              </p><h4>Vaults: {{ myVaults.length }}</h4>
+
               <p>
-                Keeps: {{ myKeeps?.length }}
-              </p>
+              </p><h4>Keeps: {{ myKeeps?.length }}</h4>
             </div>
           </div>
         </div>
@@ -116,7 +115,7 @@ h3 {
 }
 .card-columns {
 padding-top: 18px;
-column-count: 6;
+/* column-count: 6; */
 }
 .card {
   border-radius: 15px;

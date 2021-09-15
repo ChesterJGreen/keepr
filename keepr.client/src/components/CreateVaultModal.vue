@@ -13,27 +13,35 @@
           </div>
           <div class="modal-body">
             <form>
-              <label for="inputName">Name:</label>
-              <input type="text"
-                     class="form-control"
-                     id="inputName"
-                     v-model="state.rawVault.name"
-                     placeholder="Name..."
-                     required
-                     minlength="4"
-              >
-
-              <label for="inputImg">Image:</label>
-              <input type="text" class="form-control" min-length="10" id="inputImg" placeholder="Enter URL...">
-
-              <label class="form-check-label" for="inputIsPrivate">
-                Private:
-              </label>
-              <input class="form-check-input" type="checkbox" value="" id="inputIsPrivate">
-              <br>
-              <label class="form-check-label" for="inputIsPrivate">
-                If checked,<p> only you will be able to see this Vault.
-                </p></label>
+              <div class="form-group">
+                <label for="inputName">Name:</label>
+                <input type="text"
+                       class="form-control"
+                       id="inputName"
+                       v-model="state.rawVault.name"
+                       placeholder="Name..."
+                       required
+                       minlength="4"
+                >
+              </div>
+              <div class="form-group">
+                <label for="inputImg">Image:</label>
+                <input type="text"
+                       class="form-control"
+                       v-model="state.rawVault.img"
+                       min-length="10"
+                       id="inputImg"
+                       placeholder="Enter URL..."
+                >
+              </div>
+              <div class="form-check">
+                <span>
+                  Private:
+                  <input class="form-check-input ml-2" type="checkbox" value="" v-model="state.rawVault.inputIsPrivate" id="inputIsPrivate"><br>
+                  &nbsp; &nbsp; &nbsp;If checked, only you will be able to see this Vault.
+                </span>
+                <br>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
