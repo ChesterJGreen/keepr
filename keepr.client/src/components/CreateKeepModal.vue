@@ -75,11 +75,7 @@ export default {
       state,
       async createKeep() {
         try {
-          console.log('in the function, createkeepcomponent')
-          console.log(state.rawKeep)
           await keepsService.createKeep(state.rawKeep)
-          console.log('in the function, createkeepcomponent after going to service')
-          console.log(state.rawKeep)
           state.rawKeep = {}
           Pop.toast('Keep Created', 'success')
           $('#create-keep-modal').modal('toggle')
