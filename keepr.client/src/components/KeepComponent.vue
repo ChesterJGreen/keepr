@@ -1,14 +1,21 @@
 <template>
-  <div class="card card-bottom card-top action" @click="KeepModal-`{keep.id}`" data-toggel="modal" data-target="'#keep-modal-'{keep.id}">
-    <img :src="keep.img" class="card-img card-bottom card-top">
-    <h4 class="card-text py-2 card-img-overlay text-light">
-      {{ keep.name }}-- {{ keep.description }}
-    </h4>
+  <div :data-target="'#keep-modal-'+keep.id" data-toggle="modal">
+    <div class="card card-bottom card-top action" @click="KeepModal-`${keep.id}`" data-toggel="modal" data-target="'#keep-modal-'{keep.id}">
+      <img :src="keep.img" class="card-img card-bottom card-top">
+      <h4 class="card-text py-2 card-img-overlay text-light text-left">
+        {{ keep.name }}-- {{ keep.description }}
+      </h4>
+      <!-- <div class="align-items-end">
+        <router-link :to="{ name: 'PofilePage', params: {id: keep.creatorId } }" @click.stop="">
+          <img :src="keep.creator.picture" class="card-img card-img-overlay w-25 rounded-circle img-end">
+        </router-link>
+      </div> -->
+    </div>
+    <KeepModal :keep="keep" />
   </div>
 </template>
- @click="KeepModal-`{keep.id}`" data-toggel="modal" data-target="'#keep-modal-'{keep.id}">
+
 <script>
-import KeepModal from './KeepModal.vue'
 
 export default {
   name: 'KeepComponent',
@@ -23,7 +30,7 @@ export default {
     return {
     }
   },
-  components: { KeepModal }
+  components: { }
 }
 </script>
 
