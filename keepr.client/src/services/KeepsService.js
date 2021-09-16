@@ -9,10 +9,10 @@ class KeepsService {
     AppState.keeps = res.data
   }
 
-  async getAllByProfile() {
-    const res = await api.get()
+  async getAllByProfile(id) {
+    const res = await api.get(`api/profiles/${id}/keeps`)
     logger.log(res.data)
-    AppState.myKeeps = res.data
+    AppState.activeKeeps = res.data
   }
 
   async getAllByCreator(id) {
@@ -22,9 +22,6 @@ class KeepsService {
   }
 
   async getById(id) {
-    console.log('in service - 2')
-    console.log(id)
-    console.log(id)
     const res = await api.get(`api/keeps/${id}`)
     logger.log(res.data)
 

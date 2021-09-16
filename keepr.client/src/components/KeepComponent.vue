@@ -5,19 +5,22 @@
       <h4 class="card-text py-2 card-img-overlay text-light text-left">
         {{ keep.name }}-- {{ keep.description }}
       </h4>
-      <!-- <div class="align-items-end">
-        <router-link :to="{ name: 'PofilePage', params: {id: keep.creatorId } }" @click.stop="">
+      <div>
+        <div
+          @click.stop="goToProfile"
+        >
           <img :src="keep.creator.picture" class="card-img card-img-overlay w-25 rounded-circle img-end">
-        </router-link>
-      </div> -->
+        </div>
+      </div>
     </div>
     <KeepModal :keep="keep" />
   </div>
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
+
 import { keepsService } from '../services/KeepsService'
-import { logger } from '../utils/Logger'
 import Pop from '../utils/Notifier'
 
 export default {
@@ -30,20 +33,18 @@ export default {
     }
   },
   setup(props) {
+    const router = useRouter()
     return {
       async getById() {
         try {
-          logger.log('in component -1')
-          console.log('in component - 1')
-          console.log(props.keep.id)
-          console.log(props.keep)
-          const done = await keepsService.getById(props.keep.id)
-          console.log('in component - end')
-          console.log(done)
-          console.log(props.keep)
+          await keepsService.getById(props.keep.id)
         } catch (error) {
           Pop.toast(error, 'error')
         }
+      },
+      goToProfile() {
+        const profileId = props.keep.creatorId
+        router.push({ path: `/profiles/${profileId}` })
       }
 
     }

@@ -1,15 +1,20 @@
 <template>
-  <div class="card shadow">
-    <img class="w-100 card-top" :src="keep.img">
-    <h5 class="text-center">
-      {{ keep.name }}
-    </h5>
+  <div :data-target="'#keep-modal-'+keep.id" data-toggle="modal" @click="getById">
+    <div class="card card-bottom card-top shadow action">
+      <img :src="keep.img" class="card-img card-bottom card-top">
+      <div>
+        <h5 class="card-text py-2 text-dark text-center">
+          {{ keep.name }}-- {{ keep.description }}
+        </h5>
+      </div>
+    </div>
+    <KeepModal :keep="keep" />
   </div>
 </template>
-
 <script>
 export default {
   name: 'KeepCard',
+
   props: {
     keep: {
       type: Object,
@@ -17,7 +22,9 @@ export default {
     }
   },
   setup() {
-    return {}
+    return {
+
+    }
   },
   components: {}
 }
@@ -30,5 +37,8 @@ export default {
 .card-top {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
+}
+.backO {
+  background: rgba(0, 0, 255, 0.212);
 }
 </style>

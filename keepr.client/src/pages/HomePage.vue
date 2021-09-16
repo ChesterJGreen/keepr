@@ -19,7 +19,6 @@ import { keepsService } from '../services/KeepsService'
 
 export default {
   name: 'Home',
-  window,
 
   setup() {
     const loading = ref(true)

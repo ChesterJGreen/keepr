@@ -1,16 +1,8 @@
 <template>
-  <div class="modal-body">
+  <div class="modal-body ">
     <div class="modal fade" :id="'keep-modal-'+ keep.id" tabindex="-1" aria-labelledby="keepModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog modal-xl">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">
-              {{ keep.name }}
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
           <div class="modal-body">
             <div class="row">
               <div class="col-md-6">
@@ -18,13 +10,18 @@
               </div>
               <div class="col-md-6">
                 <div class="row">
-                  <div class="col-md-12 text-center ">
+                  <div class="col-md-11 text-center ">
                     <i class="mdi mdi-eye mdi-24px"></i>
                     {{ keep.views }} <span>&nbsp; </span>
                     <i class="mdi mdi-floppy mdi-24px"></i>
                     {{ keep.keeps }} <span>&nbsp; </span>
                     <i class="mdi mdi-share-variant mdi-24px"></i>
                     {{ keep.shares }}
+                  </div>
+                  <div class="col-md-1">
+                    <button type="button" class="close" data-dismiss="modal" title="Close" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
                   </div>
                 </div>
                 <div class="row">
@@ -37,22 +34,22 @@
                     </p>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <div class="row">
-              <!-- <div class="col-md-4" v-if="keep.id !==vaultkeep.keep.id">
+                <div class="modal-footer">
+                  <div class="row">
+                    <!-- <div class="col-md-4" v-if="keep.id !==vaultkeep.keep.id">
                 <button>
                   Add To Vault +
                 </button>
               </div>
               <div class="col-md-4" v-if="user.id == keep.creatorId">
               </div> -->
-              <div class="col-md-5">
-                <span><img class="w-25 rounded-circle" :src="keep.creator.picture" :alt="keep.creator.name">
-                  {{ keep.creator.name }}
-                </span>
+                    <div class="col-md-5">
+                      <span><img class="w-25 rounded-circle" :src="keep.creator.picture" :alt="keep.creator.name">
+                        {{ keep.creator.name }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -84,5 +81,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.profile{
+  align-content: flex-end;
+  justify-content: flex-end;
+}
 </style>
