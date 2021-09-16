@@ -50,9 +50,12 @@
                       Add To Vault +
                     </button>
                   </div>
-                  <div class="col-md-4 text-center">
+                  <div class="col-md-2 text-center" v-if="account.id === keep.creatorId">
                     <i class="mdi mdi-delete mdi-36px action" @click.stop="deleteKeep" title="Delete Keep"></i>
                   </div>
+                  <div class="col-md-2 text-center" v-else>
+                  </div>
+
                   <div class="col-md-4 text-center mt-2">
                     <span><img class="w-25 rounded-circle" :src="keep.creator?.picture" :alt="keep.creator?.name">
                       {{ keep.creator?.name }}
@@ -69,11 +72,14 @@
 </template>
 
 <script>
-import { computed, popScopeId, Text } from '@vue/runtime-core'
+import { computed, onMounted } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
 import Pop from '../utils/Notifier'
 import Swal from 'sweetalert2'
+import $ from 'jquery'
+import { accountService } from '../services/AccountService'
+
 export default {
   name: 'KeepModal',
   props: {
@@ -86,30 +92,33 @@ export default {
   setup(props) {
     return {
       async deleteKeep() {
-        try {
-          await Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
-            if (result.isConfirmed) {
+        await Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            try {
               keepsService.deleteKeep(props.keep.id)
-              Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              )
+            } catch (error) {
+              Pop.toast(error, 'error')
             }
-          })
-        } catch (error) {
-          Pop.toast(info, 'Not deleted')
-        }
+            Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+            $('#keep-modal-' + props.keep.id).modal('toggle')
+            // Pop.toast('Successfully Deleted', 'success')
+          }
+        })
       },
-      activeKeep: computed(() => AppState.activeKeep)
+      activeKeep: computed(() => AppState.activeKeep),
+      account: computed(() => AppState.account)
     }
   },
   components: {}

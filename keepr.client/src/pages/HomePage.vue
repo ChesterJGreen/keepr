@@ -16,6 +16,7 @@ import { computed, onMounted, ref } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import Pop from '../utils/Notifier'
 import { keepsService } from '../services/KeepsService'
+import { accountService } from '../services/AccountService'
 
 export default {
   name: 'Home',
@@ -25,6 +26,7 @@ export default {
     onMounted(async() => {
       try {
         await keepsService.getAll()
+        await accountService.getAccount()
         loading.value = false
       } catch (error) {
         Pop.toast(error, 'error')
