@@ -35,6 +35,7 @@
         </div>
         <div class="row">
           <div class="col-md-10 offset-1 my-2">
+            {{ vaultKeeps.name }}
             <div class="card-columns">
               <!-- <KeepCard v-for="k in vaultKeeps" :key="k.id" :keep="k" /> -->
             </div>
