@@ -24,6 +24,11 @@
               <span> Public <i class="mdi mdi-eye mdi-24px"></i></span>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h5>Keeps: {{ vaultKeeps.length }}</h5>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -43,12 +48,11 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watchEffect } from 'vue'
 import { AppState } from '../AppState'
 import Pop from '../utils/Notifier'
 import { vaultsService } from '../services/VaultsService'
 import { keepsService } from '../services/KeepsService'
-import VaultCard from '../components/VaultCard.vue'
 import KeepCard from '../components/KeepCard.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { logger } from '../utils/Logger'
@@ -66,11 +70,19 @@ export default {
         AppState.vaultKeeps = []
         await vaultsService.getById(route.params.id)
         await keepsService.getAllByVaultId(route.params.id)
+        if (AppState.activeVault.isPrivate === true && AppState.account?.id !== AppState.activeVault.creatorId) {
+          router.push({ name: 'Home', params: '/' })
+        }
         logger.log(AppState.vaultKeeps)
         console.log('appstate vaultkeeps')
         loading.value = false
       } catch (error) {
         Pop.toast(error, 'error')
+      }
+    })
+    watchEffect(() => {
+      if (AppState.account.id !== AppState.activeVault.creatorId) {
+        router.push({ to: 'HomePage' })
       }
     })
     return {

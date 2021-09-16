@@ -1,66 +1,61 @@
 <template>
-  <div class="modal-body "
+  <div class="modal fade"
+       :id="'keep-modal-'+ keep.id"
+       tabindex="-1"
        data-backdrop="static"
        data-keyboard="false"
+       aria-labelledby="keepModalLabel"
+       aria-hidden="false"
   >
-    <div class="modal fade"
-         :id="'keep-modal-'+ keep.id"
-         tabindex="-1"
-         data-backdrop="static"
-         data-keyboard="false"
-         aria-labelledby="keepModalLabel"
-         aria-hidden="false"
-    >
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-6">
-                <img :src="keep.img" class="w-100">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <img :src="keep.img" class="w-100">
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-11 text-center ">
+                  <i class="mdi mdi-eye mdi-24px"></i>
+                  {{ keep.views }} <span>&nbsp; </span>
+                  <i class="mdi mdi-floppy mdi-24px"></i>
+                  {{ keep.keeps }} <span>&nbsp; </span>
+                  <i class="mdi mdi-share-variant mdi-24px"></i>
+                  {{ keep.shares }}
+                </div>
+                <div class="col-md-1">
+                  <button type="button" class="close" data-dismiss="modal" title="Close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
               </div>
-              <div class="col-md-6">
-                <div class="row">
-                  <div class="col-md-11 text-center ">
-                    <i class="mdi mdi-eye mdi-24px"></i>
-                    {{ keep.views }} <span>&nbsp; </span>
-                    <i class="mdi mdi-floppy mdi-24px"></i>
-                    {{ keep.keeps }} <span>&nbsp; </span>
-                    <i class="mdi mdi-share-variant mdi-24px"></i>
-                    {{ keep.shares }}
-                  </div>
-                  <div class="col-md-1">
-                    <button type="button" class="close" data-dismiss="modal" title="Close" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
+              <div class="row">
+                <div class="col-md-12 mt-3">
+                  <h2>{{ keep.name }}</h2>
                 </div>
-                <div class="row">
-                  <div class="col-md-12 mt-3">
-                    <h2>{{ keep.name }}</h2>
-                  </div>
-                  <div class="col-md-12 mt-5">
-                    <p>
-                      {{ keep.description }}
-                    </p>
-                  </div>
+                <div class="col-md-12 mt-5">
+                  <p>
+                    {{ keep.description }}
+                  </p>
                 </div>
-                <div class="row">
-                  <div class="col-md-4 mt-2">
-                    <button class="btn btn-primary">
-                      Add To Vault +
-                    </button>
-                  </div>
-                  <div class="col-md-2 text-center" v-if="account.id === keep.creatorId">
-                    <i class="mdi mdi-delete mdi-36px action" @click.stop="deleteKeep" title="Delete Keep"></i>
-                  </div>
-                  <div class="col-md-2 text-center" v-else>
-                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 mt-2" v-if="user?.isAuthenticated===true">
+                  <VaultSelector />
+                </div>
+                <div class="col-md-4 mt-2" v-else>
+                </div>
+                <div class="col-md-2 text-center" v-if="account.id === keep.creatorId">
+                  <i class="mdi mdi-delete mdi-36px action" @click.stop="deleteKeep" title="Delete Keep"></i>
+                </div>
+                <div class="col-md-2 text-center" v-else>
+                </div>
 
-                  <div class="col-md-4 text-center mt-2">
-                    <span><img class="w-25 rounded-circle" :src="keep.creator?.picture" :alt="keep.creator?.name">
-                      {{ keep.creator?.name }}
-                    </span>
-                  </div>
+                <div class="col-md-4 text-center mt-2">
+                  <span><img class="w-25 rounded-circle" :src="keep.creator?.picture" :alt="keep.creator?.name">
+                    {{ keep.creator?.name }}
+                  </span>
                 </div>
               </div>
             </div>
@@ -72,13 +67,12 @@
 </template>
 
 <script>
-import { computed, onMounted } from '@vue/runtime-core'
+import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
 import Pop from '../utils/Notifier'
 import Swal from 'sweetalert2'
 import $ from 'jquery'
-import { accountService } from '../services/AccountService'
 
 export default {
   name: 'KeepModal',
@@ -118,7 +112,9 @@ export default {
         })
       },
       activeKeep: computed(() => AppState.activeKeep),
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      user: computed(() => AppState.user),
+      keeps: computed(() => AppState.keeps)
     }
   },
   components: {}

@@ -17,6 +17,7 @@ import { AppState } from '../AppState'
 import Pop from '../utils/Notifier'
 import { keepsService } from '../services/KeepsService'
 import { accountService } from '../services/AccountService'
+import { vaultsService } from '../services/VaultsService'
 
 export default {
   name: 'Home',
@@ -35,7 +36,8 @@ export default {
 
     return {
       loading,
-      keeps: computed(() => AppState.keeps)
+      keeps: computed(() => AppState.keeps),
+      myVaults: computed(() => AppState.myVaults)
 
     }
   }
