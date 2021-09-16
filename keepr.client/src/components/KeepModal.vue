@@ -109,7 +109,7 @@ export default {
             }
             Swal.fire(
               'Deleted!',
-              'Your file has been deleted.',
+              'Your Keep has been deleted.',
               'success'
             )
             $('#keep-modal-' + props.keep.id).modal('toggle')

@@ -5,10 +5,15 @@
         <div class="col-md-6 offset-1">
           <div class="row">
             <div class="col-md-3">
-              <img class="w-100" :src="activeVault.img" alt="" />
+              <img class="w-100" :src="activeVault.img" alt="" onerror="this.onerror=null;this.src='https://thiscatdoesnotexist.com/';" />
             </div>
-            <div class="col-md-5">
-              <h2> {{ activeVault.name }} &nbsp;&nbsp;&nbsp;&nbsp;<i class="mdi mdi-delete mdi-24px action" title="Delete Vault"></i>  </h2>
+            <div class="col-md-5" v-if="account.id === activeVault.creatorId">
+              <h2> {{ activeVault.name }} &nbsp;&nbsp;&nbsp;&nbsp;<i class="mdi mdi-delete mdi-24px action" title="Delete Vault" @click="deleteVault"></i>  </h2>
+              <hr>
+              <h4> {{ activeVault.description }}</h4>
+            </div>
+            <div class="col-md-5" v-else>
+              <h2> {{ activeVault.name }}</h2>
               <hr>
               <h4> {{ activeVault.description }}</h4>
             </div>
@@ -45,16 +50,18 @@ import { vaultsService } from '../services/VaultsService'
 import { keepsService } from '../services/KeepsService'
 import VaultCard from '../components/VaultCard.vue'
 import KeepCard from '../components/KeepCard.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { logger } from '../utils/Logger'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'VaultPage',
 
   setup() {
     const loading = ref(true)
+    const router = useRouter()
+    const route = useRoute()
     onMounted(async() => {
-      const route = useRoute()
       try {
         AppState.vaultKeeps = []
         await vaultsService.getById(route.params.id)
@@ -67,6 +74,33 @@ export default {
       }
     })
     return {
+
+      async deleteVault() {
+        await Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            try {
+              vaultsService.deleteVault(AppState.activeVault.id)
+            } catch (error) {
+              Pop.toast(error, 'error')
+            }
+            Swal.fire(
+              'Deleted!',
+              'Your Vault has been deleted.',
+              'success'
+            )
+            router.go(-1)
+          }
+        })
+      },
+
       account: computed(() => AppState.account),
       activeVault: computed(() => AppState.activeVault),
       activeKeeps: computed(() => AppState.activeKeeps),

@@ -3,7 +3,7 @@
     <div class="card card-bottom card-top action">
       <img :src="keep.img" class="card-img card-bottom card-top">
       <h4 class="card-text py-2 card-img-overlay text-light text-left">
-        {{ keep.name }}-- {{ keep.description }}
+        {{ keep.name }}
       </h4>
       <div>
         <div
