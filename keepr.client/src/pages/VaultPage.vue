@@ -9,6 +9,14 @@
             </div>
             <div class="col-md-5">
               <h2> {{ activeVault.name }}</h2>
+              <hr>
+              <h4> {{ activeVault.description }}</h4>
+            </div>
+            <div class="col-md-2" v-if="activeVault.isPrivate===true">
+              <span> Private <i class="mdi mdi-eye-off mdi-24px"></i></span>
+            </div>
+            <div class="col-md-2" v-else>
+              <span> Public <i class="mdi mdi-eye mdi-24px"></i></span>
             </div>
           </div>
         </div>
@@ -28,7 +36,7 @@
         <div class="row">
           <div class="col-md-10 offset-1 my-2">
             <div class="card-columns">
-              <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
+              <!-- <KeepCard v-for="k in vaultKeeps" :key="k.id" :keep="k" /> -->
             </div>
           </div>
         </div>
@@ -45,6 +53,7 @@ import { vaultsService } from '../services/VaultsService'
 import { keepsService } from '../services/KeepsService'
 import VaultCard from '../components/VaultCard.vue'
 import KeepCard from '../components/KeepCard.vue'
+import { useRoute } from 'vue-router'
 
 export default {
   name: 'VaultPage',
@@ -52,9 +61,11 @@ export default {
   setup() {
     const loading = ref(true)
     onMounted(async() => {
+      const route = useRoute()
       try {
-        await vaultsService.getById()
-        await keepsService.getAll()
+        AppState.vaultKeeps = []
+        await vaultsService.getById(route.params.id)
+        await keepsService.getAllByVaultId(route.params.id)
         loading.value = false
       } catch (error) {
         Pop.toast(error, 'error')
@@ -63,10 +74,11 @@ export default {
     return {
       account: computed(() => AppState.account),
       activeVault: computed(() => AppState.activeVault),
-      activeKeeps: computed(() => AppState.activeKeeps)
+      activeKeeps: computed(() => AppState.activeKeeps),
+      vaultKeeps: computed(() => AppState.vaultKeeps)
     }
   },
-  components: { VaultCard, KeepCard }
+  components: { KeepCard }
 }
 </script>
 

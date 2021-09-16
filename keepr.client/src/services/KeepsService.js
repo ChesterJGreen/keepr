@@ -24,8 +24,13 @@ class KeepsService {
   async getById(id) {
     const res = await api.get(`api/keeps/${id}`)
     logger.log(res.data)
+    AppState.activeKeep = res.data
+  }
 
-    AppState.keeps.activeKeep = res.data
+  async getAllByVaultId(id) {
+    const res = await api.get(`api/vaults/${id}/keeps`)
+    logger.log(res.data)
+    AppState.vaultKeeps = res.data
   }
 
   async createKeep(rawKeep) {
