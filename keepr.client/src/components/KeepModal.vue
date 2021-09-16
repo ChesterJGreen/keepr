@@ -1,6 +1,16 @@
 <template>
-  <div class="modal-body ">
-    <div class="modal fade" :id="'keep-modal-'+ keep.id" tabindex="-1" aria-labelledby="keepModalLabel" aria-hidden="true">
+  <div class="modal-body "
+       data-backdrop="static"
+       data-keyboard="false"
+  >
+    <div class="modal fade"
+         :id="'keep-modal-'+ keep.id"
+         tabindex="-1"
+         data-backdrop="static"
+         data-keyboard="false"
+         aria-labelledby="keepModalLabel"
+         aria-hidden="false"
+    >
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-body">
@@ -34,20 +44,18 @@
                     </p>
                   </div>
                 </div>
-                <div class="modal-footer">
-                  <div class="row">
-                    <!-- <div class="col-md-4" v-if="keep.id !==vaultkeep.keep.id">
-                <button>
-                  Add To Vault +
-                </button>
-              </div>
-              <div class="col-md-4" v-if="user.id == keep.creatorId">
-              </div> -->
-                    <div class="col-md-5">
-                      <span><img class="w-25 rounded-circle" :src="keep.creator.picture" :alt="keep.creator.name">
-                        {{ keep.creator.name }}
-                      </span>
-                    </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <button class="btn btn-primary">
+                      Add To Vault +
+                    </button>
+                  </div>
+                  <div class="col-md-4">
+                  </div>
+                  <div class="col-md-4">
+                    <span><img class="w-25 rounded-circle" :src="keep.creator?.picture" :alt="keep.creator?.name">
+                      {{ keep.creator?.name }}
+                    </span>
                   </div>
                 </div>
               </div>

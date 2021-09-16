@@ -8,7 +8,7 @@
               <img class="w-100" :src="activeVault.img" alt="" />
             </div>
             <div class="col-md-5">
-              <h2> {{ activeVault.name }}</h2>
+              <h2> {{ activeVault.name }} &nbsp;&nbsp;&nbsp;&nbsp;<i class="mdi mdi-delete mdi-24px action" title="Delete Keep"></i>  </h2>
               <hr>
               <h4> {{ activeVault.description }}</h4>
             </div>
@@ -23,21 +23,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-4 offset-1 pl-5 my-3">
-            <h3>
-              Keeps <button class="action" title="Add a Keep" data-target="#create-keep-modal" data-toggle="modal">
-                +
-              </button>
-            </h3>
-          </div>
-        </div>
+      <div class="col-md-12 mt-4">
         <div class="row">
           <div class="col-md-10 offset-1 my-2">
             {{ vaultKeeps.name }}
             <div class="card-columns">
-              <!-- <KeepCard v-for="k in vaultKeeps" :key="k.id" :keep="k" /> -->
+              <KeepCard v-for="k in vaultKeeps" :key="k.id" :keep="k" />
             </div>
           </div>
         </div>
@@ -55,6 +46,7 @@ import { keepsService } from '../services/KeepsService'
 import VaultCard from '../components/VaultCard.vue'
 import KeepCard from '../components/KeepCard.vue'
 import { useRoute } from 'vue-router'
+import { logger } from '../utils/Logger'
 
 export default {
   name: 'VaultPage',
@@ -67,6 +59,8 @@ export default {
         AppState.vaultKeeps = []
         await vaultsService.getById(route.params.id)
         await keepsService.getAllByVaultId(route.params.id)
+        logger.log(AppState.vaultKeeps)
+        console.log('appstate vaultkeeps')
         loading.value = false
       } catch (error) {
         Pop.toast(error, 'error')

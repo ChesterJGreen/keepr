@@ -35,13 +35,18 @@ namespace keepr.Repositories
     {
       string sql = @"
       SELECT
+      a.*,
       k.*,
       vk.id AS vaultKeepId
       FROM vaultKeeps vk
-      JOIN keeps k on vk.keepId = k.Id
+      JOIN keeps k ON vk.keepId = k.Id
+      JOIN accounts a ON k.creatorId = a.id
       WHERE vk.vaultId = @id;
       ";
-      return _db.Query<VaultKeepViewModel>(sql, new {id}).ToList();
+      return _db.Query<Profile, VaultKeepViewModel, VaultKeepViewModel>(sql, (prof, vkvm) => 
+      {vkvm.Creator = prof;
+      return vkvm;
+      }, new {id}, splitOn: "id").ToList();
     }
 
     internal Keep GetById(int id)

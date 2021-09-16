@@ -4,7 +4,7 @@
       <img :src="keep.img" class="card-img card-bottom card-top">
       <div>
         <h5 class="card-text py-2 text-dark text-center">
-          {{ keep.name }}-- {{ keep.description }}
+          {{ keep.name }}
         </h5>
       </div>
     </div>
