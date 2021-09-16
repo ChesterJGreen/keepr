@@ -45,14 +45,15 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-4 mt-2">
                     <button class="btn btn-primary">
                       Add To Vault +
                     </button>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-4 text-center">
+                    <i class="mdi mdi-delete mdi-36px action" @click.stop="deleteKeep" title="Delete Keep"></i>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-4 text-center mt-2">
                     <span><img class="w-25 rounded-circle" :src="keep.creator?.picture" :alt="keep.creator?.name">
                       {{ keep.creator?.name }}
                     </span>
@@ -68,8 +69,11 @@
 </template>
 
 <script>
-import { computed } from '@vue/runtime-core'
+import { computed, popScopeId, Text } from '@vue/runtime-core'
 import { AppState } from '../AppState'
+import { keepsService } from '../services/KeepsService'
+import Pop from '../utils/Notifier'
+import Swal from 'sweetalert2'
 export default {
   name: 'KeepModal',
   props: {
@@ -79,8 +83,32 @@ export default {
 
     }
   },
-  setup() {
+  setup(props) {
     return {
+      async deleteKeep() {
+        try {
+          await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              keepsService.deleteKeep(props.keep.id)
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            }
+          })
+        } catch (error) {
+          Pop.toast(info, 'Not deleted')
+        }
+      },
       activeKeep: computed(() => AppState.activeKeep)
     }
   },

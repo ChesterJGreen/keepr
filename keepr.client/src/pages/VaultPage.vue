@@ -8,7 +8,7 @@
               <img class="w-100" :src="activeVault.img" alt="" />
             </div>
             <div class="col-md-5">
-              <h2> {{ activeVault.name }} &nbsp;&nbsp;&nbsp;&nbsp;<i class="mdi mdi-delete mdi-24px action" title="Delete Keep"></i>  </h2>
+              <h2> {{ activeVault.name }} &nbsp;&nbsp;&nbsp;&nbsp;<i class="mdi mdi-delete mdi-24px action" title="Delete Vault"></i>  </h2>
               <hr>
               <h4> {{ activeVault.description }}</h4>
             </div>
