@@ -12,7 +12,7 @@ namespace keepr.Models
        [MaxLength(250)]
        public string Description { get; set; }
        [MaxLength(250)]
-       public string Img { get; set; }
+       public string Img { get; set; } = "https://thiscatdoesnotexist.com/";
        public string CreatorId { get; set; }
        public int Views { get; set; }
        public int Shares { get; set; }
