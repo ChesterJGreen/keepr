@@ -13,15 +13,17 @@
         </div>
       </div>
     </div>
-    <KeepModal :keep="keep" />
   </div>
+  <KeepModal :keep="keep" />
 </template>
 
 <script>
+import { computed } from '@vue/runtime-core'
 import { useRouter } from 'vue-router'
 
 import { keepsService } from '../services/KeepsService'
 import Pop from '../utils/Notifier'
+import { AppState } from '../AppState'
 
 export default {
   name: 'KeepComponent',
@@ -35,6 +37,7 @@ export default {
   setup(props) {
     const router = useRouter()
     return {
+      keeps: computed(() => AppState.keeps),
       async getById() {
         try {
           await keepsService.getById(props.keep.id)

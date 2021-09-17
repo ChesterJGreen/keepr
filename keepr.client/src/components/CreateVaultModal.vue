@@ -49,7 +49,7 @@
               <div class="form-check">
                 <span>
                   Private:
-                  <input class="form-check-input ml-2" type="checkbox" value="" v-model="state.rawVault.inputIsPrivate" id="inputIsPrivate"><br>
+                  <input class="form-check-input ml-2" type="checkbox" value="" v-model="state.rawVault.isPrivate" id="inputIsPrivate"><br>
                   &nbsp; &nbsp; &nbsp;If checked, only you will be able to see this Vault.
                 </span>
                 <br>

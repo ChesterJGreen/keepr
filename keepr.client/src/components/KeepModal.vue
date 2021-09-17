@@ -34,28 +34,32 @@
                 <div class="col-md-12 mt-3">
                   <h2>{{ keep.name }}</h2>
                 </div>
-                <div class="col-md-12 mt-5">
+                <div class="col-md-12 mt-5 text-left">
                   <p>
                     {{ keep.description }}
                   </p>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-4 mt-2" v-if="user?.isAuthenticated===true">
-                  <VaultSelector />
-                </div>
-                <div class="col-md-4 mt-2" v-else>
-                </div>
-                <div class="col-md-2 text-center" v-if="account.id === keep.creatorId">
-                  <i class="mdi mdi-delete mdi-36px action" @click.stop="deleteKeep" title="Delete Keep"></i>
-                </div>
-                <div class="col-md-2 text-center" v-else>
-                </div>
+              <div class="row ">
+                <div class="col-md-12 justify-content-end">
+                  <div class="row justify-content-end">
+                    <div class="col-md-4 mt-2" v-if="user?.isAuthenticated===true">
+                      <VaultSelector :keep="keep" />
+                    </div>
+                    <div class="col-md-4 mt-2" v-else>
+                    </div>
+                    <div class="col-md-2 text-center" v-if="account.id === keep.creatorId">
+                      <i class="mdi mdi-delete mdi-36px action" @click.stop="deleteKeep" title="Delete Keep"></i>
+                    </div>
+                    <div class="col-md-2 text-center" v-else>
+                    </div>
 
-                <div class="col-md-4 text-center mt-2">
-                  <span><img class="w-25 rounded-circle" :src="keep.creator?.picture" :alt="keep.creator?.name">
-                    {{ keep.creator?.name }}
-                  </span>
+                    <div class="col-md-4 text-center mt-2">
+                      <span><img class="w-25 rounded-circle" :src="keep.creator?.picture" :alt="keep.creator?.name">
+                        {{ keep.creator?.name }}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

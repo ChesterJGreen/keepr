@@ -67,22 +67,14 @@ export default {
     const route = useRoute()
     onMounted(async() => {
       try {
-        AppState.vaultKeeps = []
         await vaultsService.getById(route.params.id)
         await keepsService.getAllByVaultId(route.params.id)
-        if (AppState.activeVault.isPrivate === true && AppState.account?.id !== AppState.activeVault.creatorId) {
-          router.push({ name: 'Home', params: '/' })
-        }
         logger.log(AppState.vaultKeeps)
         console.log('appstate vaultkeeps')
         loading.value = false
       } catch (error) {
         Pop.toast(error, 'error')
-      }
-    })
-    watchEffect(() => {
-      if (AppState.account.id !== AppState.activeVault.creatorId) {
-        router.push({ to: 'HomePage' })
+        router.push({ name: 'Home', params: '/' })
       }
     })
     return {

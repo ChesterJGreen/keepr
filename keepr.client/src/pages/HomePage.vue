@@ -17,7 +17,6 @@ import { AppState } from '../AppState'
 import Pop from '../utils/Notifier'
 import { keepsService } from '../services/KeepsService'
 import { accountService } from '../services/AccountService'
-import { vaultsService } from '../services/VaultsService'
 
 export default {
   name: 'Home',
