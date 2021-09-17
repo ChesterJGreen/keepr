@@ -2,7 +2,7 @@
   <div class="container-fluid home flex-grow-1  align-items-center justify-content-center px-5">
     <div class="row m-0 mt-5 justify-content-between px-5">
     </div>
-    <div class="card-columns">
+    <div class="card-columns position-relative">
       <div v-if="loading" class="col-md-12 text-center">
         <i class="fa fa-spinner fa-spin fa-lg" aria-hidden="true"></i>
       </div>

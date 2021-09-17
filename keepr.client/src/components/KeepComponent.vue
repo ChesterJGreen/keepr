@@ -1,6 +1,6 @@
 <template>
   <div :data-target="'#keep-modal-'+keep.id" data-toggle="modal" @click="getById">
-    <div class="card card-bottom card-top action">
+    <div class="card card-bottom card-top action card-parent">
       <img :src="keep.img" class="card-img card-bottom card-top">
       <h4 class="card-text py-2 card-img-overlay text-light text-left">
         {{ keep.name }}
@@ -9,7 +9,7 @@
         <div
           @click.stop="goToProfile"
         >
-          <img :src="keep.creator.picture" class="card-img card-img-overlay w-25 rounded-circle img-end">
+          <img :src="keep.creator.picture" class="card-img-overlay w-25 rounded-circle img-end">
         </div>
       </div>
     </div>
@@ -81,6 +81,14 @@ h4 {
                -3px 3px 3px rgb(75, 59, 59),
                3px -3px 3px rgb(75, 59, 59);
 
+}
+.card-parent{
+  position: relative;
+
+}
+.img-end {
+  position: absolute;
+  left: 75%;
 }
 
 </style>

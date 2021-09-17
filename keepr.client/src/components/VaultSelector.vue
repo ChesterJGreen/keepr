@@ -39,9 +39,6 @@ export default {
       myVaults: computed(() => AppState.myVaults),
       async saveVault(vault) {
         try {
-          console.log(props.keep.id)
-          console.log(vault.id)
-          console.log('in the function-1')
           const vaultId = vault.id
           const keepId = props.keep.id
           const newVk = { keepId, vaultId }

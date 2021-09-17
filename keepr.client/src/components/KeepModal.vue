@@ -41,8 +41,8 @@
                 </div>
               </div>
               <div class="row ">
-                <div class="col-md-12 justify-content-end">
-                  <div class="row justify-content-end">
+                <div class="col-md-12">
+                  <div class="row ">
                     <div class="col-md-4 mt-2" v-if="user?.isAuthenticated===true">
                       <VaultSelector :keep="keep" />
                     </div>
@@ -55,9 +55,12 @@
                     </div>
 
                     <div class="col-md-4 text-center mt-2">
-                      <span><img class="w-25 rounded-circle" :src="keep.creator?.picture" :alt="keep.creator?.name">
-                        {{ keep.creator?.name }}
-                      </span>
+                      <div class="d-flex align-items-center">
+                        <img class="w-25 rounded-circle" :src="keep.creator?.picture" :alt="keep.creator?.name">
+                        <span class="clip-text d-block">
+                          {{ keep.creator?.name }}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
