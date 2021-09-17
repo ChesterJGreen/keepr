@@ -5,10 +5,17 @@
         <div class="col-md-6 offset-1">
           <div class="row">
             <div class="col-md-3">
-              <img class="w-100" :src="activeVault.img" alt="" onerror="this.onerror=null;this.src='https://thiscatdoesnotexist.com/';" />
+              <img class="w-100 card-top card-bottom" :src="activeVault.img" alt="" onerror="this.onerror=null;this.src='https://thiscatdoesnotexist.com/';" />
             </div>
             <div class="col-md-5" v-if="account.id === activeVault.creatorId">
-              <h2> {{ activeVault.name }} &nbsp;&nbsp;&nbsp;&nbsp;<i class="mdi mdi-delete mdi-24px action" title="Delete Vault" @click="deleteVault"></i>  </h2>
+              <div class="row">
+                <div class="col-md-10">
+                  <h2> {{ activeVault.name }} </h2>
+                </div>
+                <div class="col-md-2">
+                  <i class="mdi mdi-delete mdi-24px action" title="Delete Vault" @click="deleteVault"></i>
+                </div>
+              </div>
               <hr>
               <h4> {{ activeVault.description }}</h4>
             </div>
@@ -38,7 +45,7 @@
           <div class="col-md-10 offset-1 my-2">
             {{ vaultKeeps.name }}
             <div class="card-columns">
-              <KeepCard v-for="k in vaultKeeps" :key="k.id" :keep="k" />
+              <KeepCardForVault v-for="k in vaultKeeps" :key="k.id" :keep="k" />
             </div>
           </div>
         </div>
@@ -48,12 +55,11 @@
 </template>
 
 <script>
-import { computed, onMounted, ref, watchEffect } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { AppState } from '../AppState'
 import Pop from '../utils/Notifier'
 import { vaultsService } from '../services/VaultsService'
 import { keepsService } from '../services/KeepsService'
-import KeepCard from '../components/KeepCard.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { logger } from '../utils/Logger'
 import Swal from 'sweetalert2'
@@ -111,7 +117,7 @@ export default {
       vaultKeeps: computed(() => AppState.vaultKeeps)
     }
   },
-  components: { KeepCard }
+  components: { }
 }
 </script>
 
@@ -140,6 +146,10 @@ column-count: 6;
 .card-top {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
+}
+.card-bottom {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 </style>

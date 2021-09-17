@@ -8,12 +8,12 @@
         </h5>
       </div>
     </div>
-    <KeepModal :keep="keep" />
   </div>
+  <KeepModal :keep="keep" />
 </template>
 <script>
 export default {
-  name: 'KeepCard',
+  name: 'KeepCardForVault',
 
   props: {
     keep: {
