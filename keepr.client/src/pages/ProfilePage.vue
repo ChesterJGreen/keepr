@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import Pop from '../utils/Notifier'
 import { vaultsService } from '../services/VaultsService'
