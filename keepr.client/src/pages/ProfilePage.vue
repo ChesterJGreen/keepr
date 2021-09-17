@@ -1,13 +1,13 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid px-54">
     <div class="row">
       <div class="col-md-12 mt-5">
         <div class="col-md-6">
           <div class="row">
-            <div class="col-md-3 d-sm-none">
+            <div class="col-md-3">
               <img class="w-100 border border-dark card-top card-bottom" :src="profile?.picture" alt="" />
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 clip-text d-block">
               <h2> {{ profile.name }}</h2>
               <p>
               </p><h4>Vaults: {{ activeVaults?.length }}</h4>
@@ -47,7 +47,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-10  my-2">
+          <div class="col-md-12  my-2">
             <div class="card-columns">
               <KeepCard v-for="k in activeKeeps" :key="k.id" :keep="k" />
             </div>
@@ -123,6 +123,11 @@ padding-top: 18px;
 .card-bottom {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+}
+@media only screen and (min-width: 1200px) {
+  .card-columns {
+    column-count: 6;
+  }
 }
 
 </style>

@@ -41,4 +41,5 @@ export default {
 .backO {
   background: rgba(0, 0, 255, 0.212);
 }
+
 </style>

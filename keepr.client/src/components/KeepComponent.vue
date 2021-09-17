@@ -5,12 +5,11 @@
       <h4 class="card-text py-2 card-img-overlay text-light text-left">
         {{ keep.name }}
       </h4>
-      <div>
-        <div
-          @click.stop="goToProfile"
-        >
-          <img :src="keep.creator.picture" class="card-img-overlay w-25 rounded-circle img-end">
-        </div>
+
+      <div
+        @click.stop="goToProfile"
+      >
+        <img :src="keep.creator.picture" class="card-img-overlay rounded-circle img-end">
       </div>
     </div>
   </div>
@@ -87,8 +86,13 @@ h4 {
 
 }
 .img-end {
-  position: absolute;
-  left: 75%;
+  position: absolute ;
+  left: 60%;
+  width: 120px;
+}
+img {
+  max-height: 450px;
+
 }
 
 </style>

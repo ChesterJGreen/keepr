@@ -1,16 +1,16 @@
 <template>
   <div :data-target="'#keep-modal-'+keep.id" data-toggle="modal" @click="getById">
-    <div class="card card-bottom card-top shadow action">
+    <div class="card card-bottom card-top shadow action" :title="'Open Modal'+keep.name ">
       <img :src="keep.img" class="card-img card-bottom card-top">
       <div>
         <h5 class="card-text py-2 text-dark text-center">
           {{ keep.name }}
         </h5>
-      </div>
-      <div class="col-md-12 align-p mb-2">
-        <button class="btn btn-primary" @click.stop="deleteVk">
-          Remove Keep
-        </button>
+        <div class="align-p d-flex mb-2">
+          <button class="btn btn-primary" @click.stop="deleteVk">
+            Remove Keep
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -21,6 +21,7 @@ import { computed } from '@vue/runtime-core'
 import Pop from '../utils/Notifier'
 import { AppState } from '../AppState'
 import { vaultkeepsService } from '../services/VaultKeepsService'
+import Swal from 'sweetalert2'
 export default {
   name: 'KeepCard',
 
@@ -34,16 +35,33 @@ export default {
     return {
       vaultKeeps: computed(() => AppState.vaultKeeps),
       async deleteVk() {
-        try {
-          await vaultkeepsService.delete(props.keep.vaultKeepId)
-        } catch (error) {
-          Pop.toast(error, 'error')
-        }
-        Pop.toast('Removed Keep', 'success')
-      }
+        await Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            try {
+              vaultkeepsService.delete(props.keep.vaultKeepId)
+            } catch (error) {
+              Pop.toast(error, 'error')
+            }
+            Swal.fire(
+              'Deleted!',
+              'Your Keep has been deleted.',
+              'success'
+            )
+          }
+        })
+      },
+
+      components: {}
     }
-  },
-  components: {}
+  }
 }
 </script>
 
@@ -59,7 +77,13 @@ export default {
   background: rgba(0, 0, 255, 0.212);
 }
 .align-p {
-  position: relative;
-  left: 20%;
+  justify-content: center;
+
 }
+@media only screen and (min-width: 1200px) {
+  .card-columns {
+    column-count: 4;
+  }
+}
+
 </style>

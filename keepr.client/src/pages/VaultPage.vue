@@ -1,11 +1,11 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid px-4">
     <div class="row">
       <div class="col-md-12 mt-5">
-        <div class="col-md-6 ">
+        <div class="col-md-10 ">
           <div class="row">
             <div class="col-md-3">
-              <img class="w-100 card-top card-bottom" :src="activeVault.img" alt="" onerror="this.onerror=null;this.src='https://thiscatdoesnotexist.com/';" />
+              <img class="w-100 card-top card-bottom border border-dark shadow" :src="activeVault.img" alt="" onerror="this.onerror=null;this.src='https://thiscatdoesnotexist.com/';" />
             </div>
             <div class="col-md-5" v-if="account.id === activeVault.creatorId">
               <div class="row">
@@ -32,22 +32,17 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
-              <h5>Keeps: {{ vaultKeeps.length }}</h5>
+            <div class="col-md-12 mt-2">
+              <h3>Keeps: {{ vaultKeeps.length }}</h3>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12 mt-4">
-        <div class="row">
-          <div class="col-md-10  my-2">
-            {{ vaultKeeps.name }}
-            <div class="card-columns">
-              <KeepCardForVault v-for="k in vaultKeeps" :key="k.id" :keep="k" />
-            </div>
-          </div>
+      <div class="col-md-12 my-2">
+        <div class="card-columns">
+          <KeepCardForVault v-for="k in vaultKeeps" :key="k.id" :keep="k" />
         </div>
       </div>
     </div>
@@ -63,12 +58,17 @@ import { keepsService } from '../services/KeepsService'
 import { useRoute, useRouter } from 'vue-router'
 import { logger } from '../utils/Logger'
 import Swal from 'sweetalert2'
-import { vaultkeepsService } from '../services/VaultKeepsService'
 
 export default {
   name: 'VaultPage',
+  props: {
+    vault: {
+      type: Object,
+      required: true
+    }
+  },
 
-  setup() {
+  setup(props) {
     const loading = ref(true)
     const router = useRouter()
     const route = useRoute()
@@ -106,14 +106,16 @@ export default {
               'Your Vault has been deleted.',
               'success'
             )
-            router.go(-1)
+            router.push({ name: 'Account', params: '/account' })
           }
         })
       },
       account: computed(() => AppState.account),
       activeVault: computed(() => AppState.activeVault),
       activeKeeps: computed(() => AppState.activeKeeps),
-      vaultKeeps: computed(() => AppState.vaultKeeps)
+      vaultKeeps: computed(() => AppState.vaultKeeps),
+      vaults: computed(() => AppState.vaults),
+      myVaults: computed(() => AppState.myVaults)
     }
   },
   components: { }
@@ -135,10 +137,7 @@ h3 {
   color: rgb(32, 6, 6);
   text-shadow: 4px 4px 4px #db0808;
 }
-.card-columns {
-padding-top: 18px;
-column-count: 6;
-}
+
 .card {
   border-radius: 15px;
   }
@@ -149,6 +148,11 @@ column-count: 6;
 .card-bottom {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+}
+@media only screen and (min-width: 1200px) {
+  .card-columns {
+    column-count: 4;
+  }
 }
 
 </style>

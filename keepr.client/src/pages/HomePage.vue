@@ -52,9 +52,12 @@ export default {
     width: 200px;
   }
 }
-// .card-columns {
-// column-count: 6;
-// }
+@media only screen and (min-width: 1200px) {
+  .card-columns {
+    column-count: 4;
+  }
+}
+
 .card:hover {
   transform: scale(1.04);
 }

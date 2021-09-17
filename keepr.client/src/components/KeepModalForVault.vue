@@ -17,11 +17,11 @@
             <div class="col-md-6">
               <div class="row">
                 <div class="col-md-11 text-center ">
-                  <i class="mdi mdi-eye mdi-24px"></i>
+                  <i class="mdi mdi-eye mdi-24px" title="Views"></i>
                   {{ keep.views }} <span>&nbsp; </span>
-                  <i class="mdi mdi-floppy mdi-24px"></i>
+                  <i class="mdi mdi-floppy mdi-24px" title="Saved Keeps"></i>
                   {{ keep.keeps }} <span>&nbsp; </span>
-                  <i class="mdi mdi-share-variant mdi-24px"></i>
+                  <i class="mdi mdi-share-variant mdi-24px" title="Shares"></i>
                   {{ keep.shares }}
                 </div>
                 <div class="col-md-1">
@@ -133,5 +133,8 @@ export default {
 .profile{
   align-content: flex-end;
   justify-content: flex-end;
+}
+img {
+  max-height: 630px;
 }
 </style>

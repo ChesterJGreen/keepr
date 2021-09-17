@@ -1,13 +1,13 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid px-4">
     <div class="row">
       <div class="col-md-12 mt-5">
         <div class="col-md-6">
           <div class="row">
             <div class="col-md-3">
-              <img class="w-100 border border-dark card-top card-bottom" :src="account.picture" alt="" />
+              <img class="w-100 border border-dark card-top card-bottom" :src="account?.picture" alt="" />
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 clip-text d-block">
               <h2> {{ account.name }}</h2>
               <p>
               </p><h4>Vaults: {{ myVaults.length }}</h4>
@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-10  my-2">
+          <div class="col-md-12  my-2">
             <div class="card-columns">
               <KeepCard v-for="k in myKeeps" :key="k.id" :keep="k" />
             </div>
@@ -59,9 +59,9 @@
         </div>
       </div>
     </div>
-    <CreateVaultModal />
-    <CreateKeepModal />
   </div>
+  <CreateVaultModal />
+  <CreateKeepModal />
 </template>
 
 <script>
@@ -89,8 +89,12 @@ export default {
     })
     return {
       account: computed(() => AppState.account),
+      vaults: computed(() => AppState.vaults),
+      activeVault: computed(() => AppState.activeVault),
       myVaults: computed(() => AppState.myVaults),
-      myKeeps: computed(() => AppState.myKeeps)
+      myKeeps: computed(() => AppState.myKeeps),
+      keeps: computed(() => AppState.keeps),
+      activeKeeps: computed(() => AppState.activeKeeps)
 
     }
   },
@@ -113,9 +117,10 @@ h3 {
   color: rgb(32, 6, 6);
   text-shadow: 4px 4px 4px #db0808;
 }
-.card-columns {
-padding-top: 18px;
-/* column-count: 6; */
+@media only screen and (min-width: 1200px) {
+  .card-columns {
+    column-count: 6;
+  }
 }
 .card {
   border-radius: 15px;
