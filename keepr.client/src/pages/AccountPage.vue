@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12 mt-5">
-        <div class="col-md-6 offset-1">
+        <div class="col-md-6">
           <div class="row">
             <div class="col-md-3">
               <img class="w-100 border border-dark card-top card-bottom" :src="account.picture" alt="" />
@@ -22,7 +22,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="row">
-          <div class="col-md-4 offset-1 pl-5 my-3 mt-5">
+          <div class="col-md-4 pl-5 my-3 mt-5">
             <h3>
               Vaults <span class="action" title="Add a Vault" data-target="#create-vault-modal" data-toggle="modal">
                 +
@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-10 offset-1 my-2">
+          <div class="col-md-10 y-2">
             <div class="row">
               <VaultCard v-for="v in myVaults" :key="v.id" :vault="v" />
             </div>
@@ -42,7 +42,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="row">
-          <div class="col-md-4 offset-1 pl-5 my-3">
+          <div class="col-md-4  pl-5 my-3">
             <h3>
               Keeps <span class="action" title="Add a Keep" data-target="#create-keep-modal" data-toggle="modal">
                 +
@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-10 offset-1 my-2">
+          <div class="col-md-10  my-2">
             <div class="card-columns">
               <KeepCard v-for="k in myKeeps" :key="k.id" :keep="k" />
             </div>

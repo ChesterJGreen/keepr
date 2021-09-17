@@ -1,6 +1,6 @@
 <template>
   <div :data-target="'#keep-modal-'+keep.id" data-toggle="modal" @click="getById">
-    <div class="card card-bottom card-top shadow action">
+    <div class="card card-bottom card-top shadow action" :title="'Open Modal'+keep.name ">
       <img :src="keep.img" class="card-img card-bottom card-top">
       <div>
         <h5 class="card-text py-2 text-dark text-center">

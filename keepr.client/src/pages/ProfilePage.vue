@@ -2,9 +2,9 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12 mt-5">
-        <div class="col-md-6 offset-1">
+        <div class="col-md-6">
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 d-sm-none">
               <img class="w-100 border border-dark card-top card-bottom" :src="profile?.picture" alt="" />
             </div>
             <div class="col-md-5">
@@ -22,14 +22,14 @@
     <div class="row">
       <div class="col-md-12">
         <div class="row">
-          <div class="col-md-4 offset-1 pl-5 my-3 mt-5">
+          <div class="col-md-4 pl-5 my-3 mt-5">
             <h3>
               Vaults
             </h3>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-10 offset-1 my-2">
+          <div class="col-md-10  my-2">
             <div class="row">
               <VaultCard v-for="v in activeVaults" :key="v.id" :vault="v" />
             </div>
@@ -40,14 +40,14 @@
     <div class="row">
       <div class="col-md-12">
         <div class="row">
-          <div class="col-md-4 offset-1 pl-5 my-3">
+          <div class="col-md-4  pl-5 my-3">
             <h3>
               Keeps
             </h3>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-10 offset-1 my-2">
+          <div class="col-md-10  my-2">
             <div class="card-columns">
               <KeepCard v-for="k in activeKeeps" :key="k.id" :keep="k" />
             </div>

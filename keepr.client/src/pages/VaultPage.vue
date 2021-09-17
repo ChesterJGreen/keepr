@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12 mt-5">
-        <div class="col-md-6 offset-1">
+        <div class="col-md-6 ">
           <div class="row">
             <div class="col-md-3">
               <img class="w-100 card-top card-bottom" :src="activeVault.img" alt="" onerror="this.onerror=null;this.src='https://thiscatdoesnotexist.com/';" />
@@ -42,7 +42,7 @@
     <div class="row">
       <div class="col-md-12 mt-4">
         <div class="row">
-          <div class="col-md-10 offset-1 my-2">
+          <div class="col-md-10  my-2">
             {{ vaultKeeps.name }}
             <div class="card-columns">
               <KeepCardForVault v-for="k in vaultKeeps" :key="k.id" :keep="k" />
