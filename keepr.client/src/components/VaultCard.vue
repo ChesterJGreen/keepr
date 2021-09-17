@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-2 card shadow m-3 p-0 action" @click="goToVP" :vault="vault">
-    <img class="w-100 card-top" :src="vault.img" onerror="this.onerror=null;this.src='https://thiscatdoesnotexist.com/';">
+    <img class="card-top" :src="vault.img" onerror="this.onerror=null;this.src='https://thiscatdoesnotexist.com/';">
     <h5 class="text-center p-2">
       {{ vault.name }}
     </h5>
@@ -37,5 +37,10 @@ export default {
 .card-top {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
+}
+img {
+  max-height: 450px;
+  max-width: 100%;
+
 }
 </style>

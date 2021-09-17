@@ -1,15 +1,17 @@
 <template>
   <div :data-target="'#keep-modal-'+keep.id" data-toggle="modal" @click="getById">
     <div class="card card-bottom card-top shadow action" :title="'Open Modal'+keep.name ">
-      <img :src="keep.img" class="card-img card-bottom card-top">
+      <img class="card-top card-bottom card-img shadow" :src="keep.img" alt="" onerror="this.onerror=null;this.src='https://thiscatdoesnotexist.com/';" />
       <div>
         <h5 class="card-text py-2 text-dark text-center">
           {{ keep.name }}
         </h5>
-        <div class="align-p d-flex mb-2">
+        <div class="align-p d-flex mb-2" v-if="user.isAuthenticated==true && keep.creatorId === account.id">
           <button class="btn btn-primary" @click.stop="deleteVk">
             Remove Keep
           </button>
+        </div>
+        <div class="align-p d-flex mb-2" v-else>
         </div>
       </div>
     </div>
@@ -34,15 +36,17 @@ export default {
   setup(props) {
     return {
       vaultKeeps: computed(() => AppState.vaultKeeps),
+      user: computed(() => AppState.user),
+      account: computed(() => AppState.account),
       async deleteVk() {
         await Swal.fire({
           title: 'Are you sure?',
-          text: "You won't be able to revert this!",
+          text: 'You are able to add it again.',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
+          confirmButtonText: 'Yes, remove it!'
         }).then((result) => {
           if (result.isConfirmed) {
             try {
@@ -51,8 +55,8 @@ export default {
               Pop.toast(error, 'error')
             }
             Swal.fire(
-              'Deleted!',
-              'Your Keep has been deleted.',
+              'Removed!',
+              'Your Keep has been removed from the vault.',
               'success'
             )
           }

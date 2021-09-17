@@ -122,6 +122,14 @@ h3 {
     column-count: 6;
   }
 }
+@media only screen and (max-width: 1200px) {
+  h2 {
+    font-size: 1rem;
+  }
+  h4 {
+    font-size: 1rem;
+  }
+}
 .card {
   border-radius: 15px;
   }

@@ -57,7 +57,7 @@
                     <div class="col-md-4 text-center mt-2">
                       <div class="d-flex align-items-center">
                         <img class="w-25 rounded-circle" :src="keep.creator?.picture" :alt="keep.creator?.name">
-                        <span class="clip-text d-block">
+                        <span class="clip-text d-block mx-2">
                           {{ keep.creator?.name }}
                         </span>
                       </div>

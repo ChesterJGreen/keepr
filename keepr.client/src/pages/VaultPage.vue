@@ -5,7 +5,7 @@
         <div class="col-md-10 ">
           <div class="row">
             <div class="col-md-3">
-              <img class="w-100 card-top card-bottom border border-dark shadow" :src="activeVault.img" alt="" onerror="this.onerror=null;this.src='https://thiscatdoesnotexist.com/';" />
+              <img class="w-100 card-top card-bottom border border-dark shadow mb-2" :src="activeVault.img" alt="" onerror="this.onerror=null;this.src='https://thiscatdoesnotexist.com/';" />
             </div>
             <div class="col-md-5" v-if="account.id === activeVault.creatorId">
               <div class="row">
