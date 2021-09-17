@@ -37,8 +37,8 @@ class VaultsService {
   async deleteVault(id) {
     const res = await api.delete(`api/vaults/${id}`)
     logger.log(res.data)
-    AppState.activeVault.filter(v => v.id !== id)
-    AppState.vaults.filter(v => v.id !== id)
+    AppState.activeVault = AppState.activeVault.filter(v => v.id !== id)
+    AppState.vaults = AppState.vaults.filter(v => v.id !== id)
   }
 }
 export const vaultsService = new VaultsService()

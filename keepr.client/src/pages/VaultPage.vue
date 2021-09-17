@@ -63,6 +63,7 @@ import { keepsService } from '../services/KeepsService'
 import { useRoute, useRouter } from 'vue-router'
 import { logger } from '../utils/Logger'
 import Swal from 'sweetalert2'
+import { vaultkeepsService } from '../services/VaultKeepsService'
 
 export default {
   name: 'VaultPage',
@@ -76,7 +77,6 @@ export default {
         await vaultsService.getById(route.params.id)
         await keepsService.getAllByVaultId(route.params.id)
         logger.log(AppState.vaultKeeps)
-        console.log('appstate vaultkeeps')
         loading.value = false
       } catch (error) {
         Pop.toast(error, 'error')
@@ -110,7 +110,6 @@ export default {
           }
         })
       },
-
       account: computed(() => AppState.account),
       activeVault: computed(() => AppState.activeVault),
       activeKeeps: computed(() => AppState.activeKeeps),

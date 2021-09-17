@@ -13,7 +13,7 @@ class VaultKeepsService {
   async delete(id) {
     const res = await api.delete(`api/vaultkeeps/${id}`)
     logger.log(res.data)
-    AppState.vaultKeeps.filter(v => v.id === id)
+    AppState.vaultKeeps = AppState.vaultKeeps.filter(v => v.vaultKeepId !== id)
   }
 }
 export const vaultkeepsService = new VaultKeepsService()
