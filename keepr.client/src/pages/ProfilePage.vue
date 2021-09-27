@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-10  my-2">
+          <div class="col-md-12  my-2">
             <div class="row">
               <VaultCard v-for="v in activeVaults" :key="v.id" :vault="v" />
             </div>
