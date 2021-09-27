@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-10 y-2">
+          <div class="col-md-12 y-2">
             <div class="row">
               <VaultCard v-for="v in myVaults" :key="v.id" :vault="v" />
             </div>
