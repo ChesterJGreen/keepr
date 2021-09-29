@@ -54,7 +54,7 @@ export default {
 }
 @media only screen and (min-width: 1200px) {
   .card-columns {
-    column-count: 4;
+    column-count: 5;
   }
 }
 

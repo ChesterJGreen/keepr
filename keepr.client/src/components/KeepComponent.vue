@@ -5,7 +5,6 @@
       <h4 class="card-text py-2 card-img-overlay text-light text-left">
         {{ keep.name }}
       </h4>
-
       <div
         @click.stop="goToProfile"
       >
