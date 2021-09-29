@@ -1,5 +1,5 @@
 <template>
-  <div :data-target="'#keep-modal-'+keep.id" data-toggle="modal" @click="getById">
+  <div class="pt-3" :data-target="'#keep-modal-'+keep.id" data-toggle="modal" @click="getById">
     <div class="card card-bottom card-top action card-parent">
       <img :src="keep.img" class="card-img card-bottom card-top">
       <h4 class="card-text py-2 card-img-overlay text-light text-left">
@@ -61,6 +61,10 @@ export default {
   }
 .card:hover {
   transform: scale(1.01);
+  box-shadow: -2px -2px 2px rgba(153, 205, 50, 0.534),
+              -2px -2px 2px,
+              -2px -2px 2px;
+
 }
 .card-top {
   border-top-left-radius: 15px;
